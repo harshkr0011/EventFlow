@@ -1,3 +1,4 @@
+
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 
@@ -13,8 +14,15 @@ const firebaseConfig = {
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 
-if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-    connectAuthEmulator(auth, "http://localhost:9099");
+if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined') {
+    // In a development environment, connect to the local Firebase Auth emulator
+    // Note: The host for the emulator is automatically determined by the Firebase SDK
+    try {
+        connectAuthEmulator(auth, "http://localhost:9099");
+        console.log("Connected to Firebase Auth Emulator");
+    } catch (e) {
+        console.error("Failed to connect to Firebase Auth Emulator", e);
+    }
 }
 
 
