@@ -143,7 +143,7 @@ export default function DashboardPage() {
           </TabsList>
         </Tabs>
         
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="flex flex-col gap-8">
           {isMobile ? (
              <Sheet open={showFilters} onOpenChange={setShowFilters}>
                 <SheetContent side="left" className="w-3/4">
@@ -154,16 +154,25 @@ export default function DashboardPage() {
                         </SheetDescription>
                     </SheetHeader>
                     <div className="py-4">
-                      {eventFilters}
+                      <EventFilters
+                        categories={eventCategories}
+                        selectedCategories={selectedCategories}
+                        onCategoryChange={handleCategoryChange}
+                        isMobile={isMobile}
+                      />
                     </div>
                 </SheetContent>
              </Sheet>
           ) : (
-            <aside className="lg:col-span-1">
-              {eventFilters}
-            </aside>
+            <div>
+              <EventFilters
+                categories={eventCategories}
+                selectedCategories={selectedCategories}
+                onCategoryChange={handleCategoryChange}
+              />
+            </div>
           )}
-          <div className="lg:col-span-3">
+          <div>
             <EventList
               events={filteredEvents}
               onEventClick={setSelectedEvent}
