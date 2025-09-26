@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ListFilter } from 'lucide-react';
+import { Chatbot } from '@/components/chatbot';
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
@@ -184,6 +185,7 @@ export default function DashboardPage() {
         isBookmarked={!!selectedEvent && bookmarkedEvents.has(selectedEvent.id)}
         toggleBookmark={toggleBookmark}
       />
+      <Chatbot />
     </div>
   );
 }
