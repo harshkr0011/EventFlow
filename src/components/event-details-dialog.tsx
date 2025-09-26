@@ -35,35 +35,21 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
   const placeholder = PlaceHolderImages.find((p) => p.id === event.imageId);
   const eventUrl = typeof window !== 'undefined' ? `${window.location.origin}/dashboard?eventId=${event.id}` : '';
 
-  const generateCalendarLink = () => {
+  const generateGoogleCalendarLink = () => {
     const startDate = new Date(event.date);
     const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // Assume 2 hour duration
 
-    const toICSFormat = (date: Date) => {
-        return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-    }
+    const toGoogleFormat = (date: Date) => {
+      return date.toISOString().replace(/-|:|\.\d{3}/g, '');
+    };
 
     const title = encodeURIComponent(event.title);
-    const description = encodeURIComponent(event.description);
+    const details = encodeURIComponent(event.description);
     const location = encodeURIComponent(event.venue);
-    const startTime = toICSFormat(startDate);
-    const endTime = toICSFormat(endDate);
+    const startTime = toGoogleFormat(startDate);
+    const endTime = toGoogleFormat(endDate);
 
-    const icsContent = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'BEGIN:VEVENT',
-      `URL:${eventUrl}`,
-      `DTSTART:${startTime}`,
-      `DTEND:${endTime}`,
-      `SUMMARY:${title}`,
-      `DESCRIPTION:${description}`,
-      `LOCATION:${location}`,
-      'END:VEVENT',
-      'END:VCALENDAR'
-    ].join('\\n');
-
-    return `data:text/calendar;charset=utf8,${encodeURIComponent(icsContent)}`;
+    return `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startTime}/${endTime}&details=${details}&location=${location}`;
   };
 
   return (
@@ -117,7 +103,7 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
                 </div>
                  <div className='flex items-center gap-2'>
                     <Button asChild variant="outline">
-                        <a href={generateCalendarLink()} download={`${event.title}.ics`}>
+                        <a href={generateGoogleCalendarLink()} target="_blank" rel="noopener noreferrer">
                             <CalendarPlus className="mr-2 h-4 w-4" />
                             Add to Calendar
                         </a>
