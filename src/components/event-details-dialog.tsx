@@ -54,7 +54,7 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
               data-ai-hint={placeholder?.imageHint || 'event portrait'}
             />
         </div>
-        <ScrollArea className="h-full">
+        <ScrollArea className="h-[90vh] md:h-full">
             <div className="p-6 flex flex-col">
               <DialogHeader className="mb-4">
                 <Badge variant="secondary" className="w-fit mb-2">{event.category}</Badge>
