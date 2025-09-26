@@ -3,7 +3,7 @@
 /**
  * @fileOverview A flow for analyzing and saving event comments.
  *
- * - processComment - A function that analyzes sentiment and saves a comment.
+ * - processComment - A function that analyzes and saves a comment.
  * - CommentInput - The input type for the processComment function.
  */
 
@@ -26,7 +26,7 @@ const CommentSentimentSchema = z.object({
 });
 
 export async function processComment(input: CommentInput) {
-  return await commentFlow(input);
+  await commentFlow(input);
 }
 
 const sentimentPrompt = ai.definePrompt({
