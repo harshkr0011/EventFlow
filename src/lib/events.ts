@@ -243,6 +243,5 @@ export const eventCategories = [
   'Film',
   'Culture',
   'Sports',
-  'Wellness',
-  'Featured'
+  'Wellness'
 ];
