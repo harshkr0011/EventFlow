@@ -130,7 +130,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="flex justify-center items-center gap-4 mb-8">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-auto">
               <TabsList>
                 <TabsTrigger value="all">All Events</TabsTrigger>
