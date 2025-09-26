@@ -22,3 +22,12 @@ export type SignupFormData = {
     password: string;
     confirmPassword?: string;
 }
+
+export type Comment = {
+    id: string;
+    userId: string;
+    userEmail: string;
+    text: string;
+    sentiment: 'positive' | 'negative' | 'neutral';
+    createdAt: string;
+};

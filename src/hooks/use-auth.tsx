@@ -13,9 +13,6 @@ import {
   sendPasswordResetEmail,
   getAuth,
   type Auth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber as firebaseSignInWithPhoneNumber,
-  type ConfirmationResult,
 } from 'firebase/auth';
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { useRouter } from 'next/navigation';

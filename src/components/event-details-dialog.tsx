@@ -9,13 +9,12 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Bookmark, Calendar, Facebook, Linkedin, MapPin, MessageSquare, Twitter, Share2 } from 'lucide-react';
+import { Bookmark, Calendar, Facebook, Linkedin, MapPin, Twitter, Share2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { Textarea } from '@/components/ui/textarea';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { EventComments } from './event-comments';
 
 type EventDetailsDialogProps = {
   event: Event | null;
@@ -30,16 +29,11 @@ const socialPlatforms = [
   { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/shareArticle?mini=true&url=' },
 ];
 
-const mockComments = [
-    { user: 'Aarav S.', text: "Can't wait for this! Looks amazing.", avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d' },
-    { user: 'Priya K.', text: 'Is there parking available?', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026705d' },
-];
-
 export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBookmark }: EventDetailsDialogProps) {
   if (!event) return null;
 
   const placeholder = PlaceHolderImages.find((p) => p.id === event.imageId);
-  const eventUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const eventUrl = typeof window !== 'undefined' ? `${window.location.origin}/dashboard?eventId=${event.id}` : '';
 
   return (
     <Dialog open={!!event} onOpenChange={onOpenChange}>
@@ -83,7 +77,7 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
                     <Share2 className="h-4 w-4 text-muted-foreground" />
                     <span className="text-sm font-medium">Share:</span>
                     {socialPlatforms.map(p => (
-                        <a key={p.name} href={`${p.url}${eventUrl}&text=Check out this event: ${event.title}`} target="_blank" rel="noopener noreferrer">
+                        <a key={p.name} href={`${p.url}${encodeURIComponent(eventUrl)}&text=${encodeURIComponent(`Check out this event: ${event.title}`)}`} target="_blank" rel="noopener noreferrer">
                            <Button variant="outline" size="icon" className="h-8 w-8">
                                <p.icon className="h-4 w-4" />
                            </Button>
@@ -98,27 +92,7 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
 
               <Separator className="my-4" />
 
-              <div>
-                <h4 className="font-semibold mb-2 flex items-center"><MessageSquare className="mr-2 h-4 w-4 text-primary"/> Comments</h4>
-                <div className="space-y-4 pr-2">
-                  {mockComments.map((comment, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <Avatar>
-                        <AvatarImage src={comment.avatar} />
-                        <AvatarFallback>{comment.user.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="font-semibold text-sm">{comment.user}</p>
-                        <p className="text-sm text-muted-foreground">{comment.text}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 flex gap-2">
-                    <Textarea placeholder="Add a comment..." className="flex-grow"/>
-                    <Button>Post</Button>
-                </div>
-              </div>
+              <EventComments eventId={event.id} />
             </div>
         </ScrollArea>
       </DialogContent>

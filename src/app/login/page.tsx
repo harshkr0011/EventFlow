@@ -116,10 +116,12 @@ export default function AuthPage() {
         <div className="form-container sign-up-container">
             <form onSubmit={handleSignupSubmit(onSignupSubmit)}>
               <h1>Create Account</h1>
-              <div className="social-container">
-                <a href="#" className="social"><Facebook className='h-5 w-5'/></a>
-                <a href="#" className="social"><Linkedin className='h-5 w-5'/></a>
-              </div>
+              <div className="my-4">
+              <Button onClick={handleGoogleSignIn} variant="outline" className="w-full">
+                <GoogleIcon className="mr-2 h-5 w-5" />
+                Continue with Google
+              </Button>
+            </div>
               <span>or use your email for registration</span>
               <input type="email" placeholder="Email" {...registerSignup('email')} />
               {signupErrors.email && <p className="error-message">{signupErrors.email.message}</p>}
