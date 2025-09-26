@@ -26,6 +26,7 @@ export function Chatbot() {
   const [loading, setLoading] = React.useState(false);
   const { toast } = useToast();
   const viewportRef = React.useRef<HTMLDivElement>(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
 
   const toggleChat = () => setIsOpen(!isOpen);
@@ -66,6 +67,19 @@ export function Chatbot() {
     }
   }, [messages]);
 
+  React.useEffect(() => {
+    if (!loading) {
+      inputRef.current?.focus();
+    }
+  }, [loading]);
+
+  React.useEffect(() => {
+    if (isOpen) {
+        setTimeout(() => {
+            inputRef.current?.focus();
+        }, 100);
+    }
+  }, [isOpen]);
 
   return (
     <>
@@ -84,7 +98,7 @@ export function Chatbot() {
                 <Bot className="text-primary" /> EventFlow Assistant
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 p-0 overflow-hidden">
+          <CardContent className="flex-1 p-0 overflow-hidden flex flex-col">
              <ScrollArea className="h-full" viewportRef={viewportRef}>
                 <div className="p-4 space-y-4">
                 {messages.map((msg) => (
@@ -123,6 +137,7 @@ export function Chatbot() {
           <CardFooter className="p-4 border-t">
             <form onSubmit={handleSendMessage} className="flex w-full items-center gap-2">
               <Input
+                ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about an event..."
