@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
-import './auth.css';
+import '../auth.css';
 import { LoginFormData, SignupFormData } from '@/lib/types';
 import { Facebook, Linkedin, Twitter } from 'lucide-react';
 
