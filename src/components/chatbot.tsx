@@ -97,7 +97,7 @@ export function Chatbot() {
                     {msg.sender === 'bot' && <Bot className="h-6 w-6 text-primary flex-shrink-0" />}
                     <div
                         className={cn(
-                        'rounded-lg px-3 py-2 max-w-[80%] break-word overflow-hidden',
+                        'rounded-lg px-3 py-2 max-w-[80%] break-words',
                         msg.sender === 'user'
                             ? 'bg-primary text-primary-foreground'
                             : 'bg-muted text-muted-foreground'
