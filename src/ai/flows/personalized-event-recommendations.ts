@@ -43,15 +43,19 @@ const prompt = ai.definePrompt({
   name: 'personalizedEventRecommendationsPrompt',
   input: {schema: PersonalizedEventRecommendationsInputSchema},
   output: {schema: PersonalizedEventRecommendationsOutputSchema},
-  prompt: `You are an expert event recommendation system.
+  prompt: `You are an expert event recommendation system. Your task is to recommend events to a user based on their stated preferences.
 
-You will use the user preferences and past booking history to recommend events that the user is likely to be interested in.
+You will be provided with:
+1.  A list of the user's preferred event categories (userPreferences).
+2.  A list of all available events (allEvents).
 
-User Preferences: {{userPreferences}}
-Past Booking History: {{pastBookingHistory}}
-All Available Events: {{allEvents}}
+Your goal is to return a list of event titles from the \`allEvents\` list that you think the user will be interested in.
 
-Based on the user preferences and past booking history, recommend events from the list of all available events. Your response should only include event titles from the "All Available Events" list.
+-   User Preferences: {{userPreferences}}
+-   All Available Events: {{allEvents}}
+
+Carefully review the user's preferences. Then, from the "All Available Events" list, select the events that best match those interests.
+Your response MUST only contain a JSON object with a key "recommendedEvents" which is an array of strings, where each string is an event title from the provided "All Available Events" list.
 `,
 });
 
