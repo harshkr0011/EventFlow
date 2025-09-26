@@ -5,20 +5,28 @@ import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
+import './auth.css';
+import { LoginFormData, SignupFormData } from '@/lib/types';
+import { Facebook, Linkedin, Twitter } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
   password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
 });
 
-export type LoginFormData = z.infer<typeof loginSchema>;
+const signupSchema = z
+  .object({
+    email: z.string().email({ message: 'Invalid email address' }),
+    password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
 
 function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -43,24 +51,46 @@ function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default function LoginPage() {
+export default function AuthPage() {
+  const [isRightPanelActive, setRightPanelActive] = React.useState(false);
+  const { login, signup, signInWithGoogle } = useAuth();
+  const { toast } = useToast();
+
   const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
+    register: registerLogin,
+    handleSubmit: handleLoginSubmit,
+    formState: { errors: loginErrors, isSubmitting: isLoggingIn },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
-  const { login, signInWithGoogle } = useAuth();
-  const { toast } = useToast();
 
-  const onSubmit = async (data: LoginFormData) => {
+  const {
+    register: registerSignup,
+    handleSubmit: handleSignupSubmit,
+    formState: { errors: signupErrors, isSubmitting: isSigningUp },
+  } = useForm<SignupFormData>({
+    resolver: zodResolver(signupSchema),
+  });
+
+  const onLoginSubmit = async (data: LoginFormData) => {
     try {
       await login(data);
     } catch (error: any) {
       toast({
         variant: 'destructive',
         title: 'Login Failed',
+        description: error.message || 'An unexpected error occurred.',
+      });
+    }
+  };
+  
+  const onSignupSubmit = async (data: SignupFormData) => {
+    try {
+      await signup(data);
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Sign Up Failed',
         description: error.message || 'An unexpected error occurred.',
       });
     }
@@ -79,60 +109,62 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-2xl">Log In</CardTitle>
-          <CardDescription>Enter your email below to log in to your account.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                {...register('email')}
-              />
-              {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+    <div className="auth-body">
+      <div className={`container ${isRightPanelActive ? 'right-panel-active' : ''}`} id="container">
+        <div className="form-container sign-up-container">
+          <form onSubmit={handleSignupSubmit(onSignupSubmit)}>
+            <h1>Create Account</h1>
+            <div className="social-container">
+              <a href="#" className="social" onClick={handleGoogleSignIn}><GoogleIcon className='h-5 w-5'/></a>
+              <a href="#" className="social"><Facebook className='h-5 w-5'/></a>
+              <a href="#" className="social"><Linkedin className='h-5 w-5'/></a>
             </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link href="/forgot-password" passHref className="ml-auto inline-block text-sm underline">
-                  Forgot your password?
-                </Link>
-              </div>
-              <Input id="password" type="password" {...register('password')} />
-              {errors.password && (
-                <p className="text-sm text-destructive">{errors.password.message}</p>
-              )}
-            </div>
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? 'Logging in...' : 'Log In'}
-            </Button>
+            <span>or use your email for registration</span>
+            <input type="email" placeholder="Email" {...registerSignup('email')} />
+            {signupErrors.email && <p className="error-message">{signupErrors.email.message}</p>}
+            <input type="password" placeholder="Password" {...registerSignup('password')} />
+            {signupErrors.password && <p className="error-message">{signupErrors.password.message}</p>}
+            <input type="password" placeholder="Confirm Password" {...registerSignup('confirmPassword')} />
+            {signupErrors.confirmPassword && <p className="error-message">{signupErrors.confirmPassword.message}</p>}
+            <button type="submit" disabled={isSigningUp}>
+              {isSigningUp ? 'Signing up...' : 'Sign Up'}
+            </button>
           </form>
-          <div className="relative my-4">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
+        </div>
+        <div className="form-container sign-in-container">
+          <form onSubmit={handleLoginSubmit(onLoginSubmit)}>
+            <h1>Sign in</h1>
+            <div className="social-container">
+              <a href="#" className="social" onClick={handleGoogleSignIn}><GoogleIcon className='h-5 w-5'/></a>
+              <a href="#" className="social"><Facebook className='h-5 w-5'/></a>
+              <a href="#" className="social"><Linkedin className='h-5 w-5'/></a>
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+            <span>or use your account</span>
+            <input type="email" placeholder="Email" {...registerLogin('email')} />
+            {loginErrors.email && <p className="error-message">{loginErrors.email.message}</p>}
+            <input type="password" placeholder="Password" {...registerLogin('password')} />
+            {loginErrors.password && <p className="error-message">{loginErrors.password.message}</p>}
+            <Link href="/forgot-password">Forgot your password?</Link>
+            <button type="submit" disabled={isLoggingIn}>
+              {isLoggingIn ? 'Signing in...' : 'Sign In'}
+            </button>
+          </form>
+        </div>
+        <div className="overlay-container">
+          <div className="overlay">
+            <div className="overlay-panel overlay-left">
+              <h1>Welcome Back!</h1>
+              <p>To keep connected with us please login with your personal info</p>
+              <button className="ghost" id="signIn" onClick={() => setRightPanelActive(false)}>Sign In</button>
+            </div>
+            <div className="overlay-panel overlay-right">
+              <h1>Hello, Friend!</h1>
+              <p>Enter your personal details and start journey with us</p>
+              <button className="ghost" id="signUp" onClick={() => setRightPanelActive(true)}>Sign Up</button>
             </div>
           </div>
-          <Button variant="outline" className="w-full" onClick={handleGoogleSignIn}>
-            <GoogleIcon className="mr-2 h-4 w-4" />
-            Continue with Google
-          </Button>
-          <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{' '}
-            <Link href="/signup" className="underline">
-              Sign up
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

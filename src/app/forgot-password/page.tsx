@@ -12,6 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
+import './auth.css';
 
 const forgotPasswordSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -47,7 +48,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
+    <div className="auth-body">
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Forgot Password</CardTitle>
@@ -82,3 +83,4 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
+

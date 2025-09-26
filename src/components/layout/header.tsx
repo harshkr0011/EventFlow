@@ -52,7 +52,7 @@ export function Header({ searchTerm, setSearchTerm, setShowFilters }: HeaderProp
             ) : (
               <>
                 <Button variant="ghost" asChild><Link href="/login">Log In</Link></Button>
-                <Button className="bg-gradient-primary text-primary-foreground" asChild><Link href="/signup">Sign Up</Link></Button>
+                <Button className="bg-gradient-primary text-primary-foreground" asChild><Link href="/login">Sign Up</Link></Button>
               </>
             )}
           </div>
