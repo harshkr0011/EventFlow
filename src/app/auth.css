@@ -298,6 +298,7 @@
     
     .auth-body .overlay-left {
         transform: translateY(-20%);
+        top:0;
     }
 
     .auth-body .container.right-panel-active .overlay-left {
