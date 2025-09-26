@@ -77,6 +77,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'rollingstoneindia.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
@@ -84,4 +90,6 @@ const nextConfig: NextConfig = {
 export default nextConfig;
 
     
+    
+
     
