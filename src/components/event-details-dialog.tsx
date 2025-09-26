@@ -44,7 +44,7 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
   return (
     <Dialog open={!!event} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] p-0 grid grid-cols-1 md:grid-cols-2 gap-0">
-        <div className="relative h-48 md:h-full w-full">
+        <div className="relative h-40 md:h-full w-full">
             <Image
               src={placeholder?.imageUrl || `https://picsum.photos/seed/${event.id}/600/800`}
               alt={event.title}
@@ -55,7 +55,7 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
             />
         </div>
         <ScrollArea className="h-auto max-h-[90vh]">
-            <div className="p-6">
+            <div className="p-4 md:p-6">
               <DialogHeader className="mb-4">
                 <Badge variant="secondary" className="w-fit mb-2">{event.category}</Badge>
                 <DialogTitle className="text-xl md:text-3xl font-bold">{event.title}</DialogTitle>
