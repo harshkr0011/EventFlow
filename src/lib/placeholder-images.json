@@ -47,6 +47,78 @@
       "description": "A variety of Indian street food dishes.",
       "imageUrl": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBmb29kfGVufDB8fHx8MTc1ODg3NTE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "indian food"
+    },
+    {
+      "id": "event-chhath-puja",
+      "description": "Devotees offering prayers during Chhath Puja at sunrise.",
+      "imageUrl": "https://images.unsplash.com/photo-1636502931135-3343a411b918?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "chhath puja"
+    },
+    {
+      "id": "event-ipl-final",
+      "description": "A cricket stadium packed with fans during a night match.",
+      "imageUrl": "https://images.unsplash.com/photo-1594470120854-943485f79599?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "cricket match"
+    },
+    {
+      "id": "event-pushkar-fair",
+      "description": "Decorated camels at the Pushkar Camel Fair in Rajasthan.",
+      "imageUrl": "https://images.unsplash.com/photo-1596482181180-494a3def483b?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "camel fair"
+    },
+    {
+      "id": "event-mysore-dasara",
+      "description": "The illuminated Mysore Palace during the Dasara festival.",
+      "imageUrl": "https://images.unsplash.com/photo-1566085023905-64900877aeb3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "mysore palace"
+    },
+    {
+      "id": "event-ziro-music",
+      "description": "A crowd at an outdoor music festival in a scenic valley.",
+      "imageUrl": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "music festival"
+    },
+    {
+      "id": "event-kolkata-book-fair",
+      "description": "Crowds of people browsing books at a large book fair.",
+      "imageUrl": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "book fair"
+    },
+    {
+      "id": "event-rann-utsav",
+      "description": "Tents set up on the white salt desert of Rann of Kutch.",
+      "imageUrl": "https://images.unsplash.com/photo-1620656515239-693959145695?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "white desert"
+    },
+    {
+      "id": "event-nh7-weekender",
+      "description": "A vibrant stage at the NH7 Weekender music festival.",
+      "imageUrl": "https://images.unsplash.com/photo-1563847274394-015842815147?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%DD",
+      "imageHint": "music concert"
+    },
+    {
+      "id": "event-yoga-festival",
+      "description": "A large group of people practicing yoga outdoors.",
+      "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2120&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "yoga retreat"
+    },
+    {
+      "id": "event-hornbill-festival",
+      "description": "Naga tribesmen in traditional attire at the Hornbill Festival.",
+      "imageUrl": "https://images.unsplash.com/photo-1604753736733-a160053a479b?q=80&w=1939&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "tribal festival"
+    },
+    {
+      "id": "event-india-art-fair",
+      "description": "People observing paintings at a modern art gallery.",
+      "imageUrl": "https://images.unsplash.com/photo-1536924430940-9493f05d5db1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "art fair"
+    },
+    {
+      "id": "event-indian-food-fest",
+      "description": "A vibrant spread of various Indian food dishes.",
+      "imageUrl": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "food festival"
     }
   ]
 }
