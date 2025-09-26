@@ -47,6 +47,7 @@ export function Header({ searchTerm, setSearchTerm, setShowFilters }: HeaderProp
             </Button>
           )}
           <div className="hidden sm:flex items-center gap-2">
+            <Button variant="ghost" asChild><Link href="/contact">Contact Us</Link></Button>
             {user ? (
               <Button variant="ghost" onClick={logout}>Log Out</Button>
             ) : (
