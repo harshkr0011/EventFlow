@@ -2,11 +2,10 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signOut, type User, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, getAuth } from 'firebase/auth';
+import { onAuthStateChanged, signOut, type User, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, getAuth, type Auth } from 'firebase/auth';
 import { app } from '@/lib/firebase';
-import { usePathname, useRouter } from 'next/navigation';
-import type { LoginFormData } from '@/app/login/page';
-import type { SignupFormData } from '@/app/signup/page';
+import { useRouter } from 'next/navigation';
+import type { LoginFormData, SignupFormData } from '@/lib/types';
 
 
 type AuthContextType = {
@@ -24,18 +23,22 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [auth, setAuth] = useState<Auth | null>(null);
   const router = useRouter();
-  const auth = getAuth(app);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const authInstance = getAuth(app);
+    setAuth(authInstance);
+
+    const unsubscribe = onAuthStateChanged(authInstance, (user) => {
       setUser(user);
       setLoading(false);
     });
     return () => unsubscribe();
-  }, [auth]);
+  }, []);
 
   const login = async (data: LoginFormData) => {
+    if (!auth) return;
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
@@ -49,6 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signup = async (data: SignupFormData) => {
+    if (!auth) return;
     setLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
@@ -62,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
+    if (!auth) return;
     setLoading(true);
     try {
       await signOut(auth);
@@ -74,6 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signInWithGoogle = async () => {
+    if (!auth) return;
     setLoading(true);
     const provider = new GoogleAuthProvider();
     try {
@@ -88,6 +94,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const sendPasswordReset = async (email: string) => {
+    if (!auth) return;
     setLoading(true);
     try {
       await sendPasswordResetEmail(auth, email);
