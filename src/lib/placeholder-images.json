@@ -93,7 +93,7 @@
     {
       "id": "event-nh7-weekender",
       "description": "A vibrant stage at the NH7 Weekender music festival.",
-      "imageUrl": "https://images.unsplash.com/photo-1563847274394-015842815147?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%DD",
+      "imageUrl": "https://images.unsplash.com/photo-1563847274394-015842815147?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3DD",
       "imageHint": "music concert"
     },
     {
@@ -119,6 +119,12 @@
       "description": "A vibrant spread of various Indian food dishes.",
       "imageUrl": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "food festival"
+    },
+    {
+      "id": "event-aam-mahotsav",
+      "description": "A basket full of fresh, ripe mangoes.",
+      "imageUrl": "https://images.unsplash.com/photo-1554795808-3231c32711cf?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "mango festival"
     }
   ]
 }

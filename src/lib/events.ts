@@ -3,6 +3,17 @@ import type { Event } from './types';
 
 export const allEvents: Event[] = [
   {
+    id: '9',
+    title: 'Chhath Puja on the Ganges',
+    description: 'Experience the ancient Hindu Vedic festival dedicated to the Sun God, Surya. Devotees offer prayers and offerings on the banks of the Ganges.',
+    date: new Date(new Date().setDate(new Date().getDate() + 50)).toISOString(),
+    venue: 'Ganges River Ghats, Patna, Bihar',
+    organizer: 'Bihar Tourism',
+    price: 0,
+    imageId: 'event-chhath-puja',
+    category: 'Culture',
+  },
+  {
     id: '1',
     title: 'Diwali Festival of Lights',
     description: 'Celebrate the festival of lights with a spectacular display of fireworks, traditional music, and delicious Indian sweets.',
@@ -91,15 +102,15 @@ export const allEvents: Event[] = [
     category: 'Food',
   },
   {
-    id: '9',
-    title: 'Chhath Puja on the Ganges',
-    description: 'Experience the ancient Hindu Vedic festival dedicated to the Sun God, Surya. Devotees offer prayers and offerings on the banks of the Ganges.',
-    date: new Date(new Date().setDate(new Date().getDate() + 50)).toISOString(),
-    venue: 'Ganges River Ghats, Patna, Bihar',
+    id: '21',
+    title: 'Bihar Aam Mahotsav',
+    description: 'A celebration of the king of fruits, the mango. Featuring hundreds of varieties of mangoes from across Bihar and India.',
+    date: new Date(new Date().setDate(new Date().getDate() + 48)).toISOString(),
+    venue: 'Gyan Bhawan, Patna, Bihar',
     organizer: 'Bihar Tourism',
-    price: 0,
-    imageId: 'event-chhath-puja',
-    category: 'Culture',
+    price: 50,
+    imageId: 'event-aam-mahotsav',
+    category: 'Food',
   },
   {
     id: '10',
