@@ -14,6 +14,8 @@ import { RecommendationTool } from '@/components/recommendation-tool';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { useDebounce } from '@/hooks/use-debounce';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -22,6 +24,8 @@ export default function Home() {
   const [activeTab, setActiveTab] = React.useState('all');
   const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
   const [isClient, setIsClient] = React.useState(false);
+  const [showFilters, setShowFilters] = React.useState(false);
+  const isMobile = useIsMobile();
 
   React.useEffect(() => {
     setIsClient(true);
@@ -79,13 +83,21 @@ export default function Home() {
       localStorage.setItem('bookmarkedEvents', JSON.stringify(Array.from(newBookmarkedEvents)));
     }
   };
+  
+  const eventFilters = (
+    <EventFilters
+      categories={eventCategories}
+      selectedCategories={selectedCategories}
+      onCategoryChange={handleCategoryChange}
+    />
+  );
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-transparent font-body text-foreground">
-      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} setShowFilters={setShowFilters} />
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
             Find Your Next Experience
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -101,13 +113,17 @@ export default function Home() {
         </Tabs>
         
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <aside className="lg:col-span-1">
-            <EventFilters
-              categories={eventCategories}
-              selectedCategories={selectedCategories}
-              onCategoryChange={handleCategoryChange}
-            />
-          </aside>
+          {isMobile ? (
+             <Sheet open={showFilters} onOpenChange={setShowFilters}>
+                <SheetContent side="left" className="w-3/4">
+                    {eventFilters}
+                </SheetContent>
+             </Sheet>
+          ) : (
+            <aside className="lg:col-span-1">
+              {eventFilters}
+            </aside>
+          )}
           <div className="lg:col-span-3">
             <EventList
               events={filteredEvents}

@@ -21,6 +21,33 @@ export function RecommendationTool({ allEvents, onEventClick }: RecommendationTo
   const [preferences, setPreferences] = React.useState<string[]>([]);
   const [recommendedEvents, setRecommendedEvents] = React.useState<Event[]>([]);
   const [loading, setLoading] = React.useState(false);
+  const [bookmarkedEvents, setBookmarkedEvents] = React.useState<Set<string>>(new Set());
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+    try {
+      const saved = localStorage.getItem('bookmarkedEvents');
+      if (saved) {
+        setBookmarkedEvents(new Set(JSON.parse(saved)));
+      }
+    } catch (error) {
+      console.error('Failed to parse bookmarked events from localStorage', error);
+    }
+  }, []);
+
+  const toggleBookmark = (eventId: string) => {
+    const newBookmarkedEvents = new Set(bookmarkedEvents);
+    if (newBookmarkedEvents.has(eventId)) {
+      newBookmarkedEvents.delete(eventId);
+    } else {
+      newBookmarkedEvents.add(eventId);
+    }
+    setBookmarkedEvents(newBookmarkedEvents);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('bookmarkedEvents', JSON.stringify(Array.from(newBookmarkedEvents)));
+    }
+  };
 
   const handlePreferenceChange = (category: string) => {
     setPreferences((prev) =>
@@ -96,8 +123,9 @@ export function RecommendationTool({ allEvents, onEventClick }: RecommendationTo
                 <EventList 
                     events={recommendedEvents} 
                     onEventClick={onEventClick}
-                    bookmarkedEvents={new Set()}
-                    toggleBookmark={() => {}}
+                    bookmarkedEvents={bookmarkedEvents}
+                    toggleBookmark={toggleBookmark}
+                    isClient={isClient}
                 />
               )}
           </div>}

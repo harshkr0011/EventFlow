@@ -1,15 +1,17 @@
 
-import { Search, Ticket } from 'lucide-react';
+import { Filter, Search, Ticket } from 'lucide-react';
 import { ThemeToggle } from '../theme-toggle';
 import { Input } from '../ui/input';
 import { Button } from '@/components/ui/button';
+import type { Dispatch, SetStateAction } from 'react';
 
 type HeaderProps = {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
+  setShowFilters?: Dispatch<SetStateAction<boolean>>;
 };
 
-export function Header({ searchTerm, setSearchTerm }: HeaderProps) {
+export function Header({ searchTerm, setSearchTerm, setShowFilters }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-lg border-border/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center">
@@ -17,7 +19,7 @@ export function Header({ searchTerm, setSearchTerm }: HeaderProps) {
           <Ticket className="h-6 w-6 text-primary" />
           <span className="ml-2 text-lg font-bold">EventFlow</span>
         </div>
-        <div className="flex-1 flex justify-center">
+        <div className="flex-1 flex justify-center px-4">
           <div className="relative w-full max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
@@ -30,8 +32,20 @@ export function Header({ searchTerm, setSearchTerm }: HeaderProps) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="ghost" className="hidden sm:flex">Log In</Button>
-          <Button className="bg-gradient-primary text-primary-foreground">Sign Up</Button>
+          {setShowFilters && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="lg:hidden"
+              onClick={() => setShowFilters((show) => !show)}
+            >
+              <Filter />
+            </Button>
+          )}
+          <div className="hidden sm:flex items-center gap-2">
+            <Button variant="ghost">Log In</Button>
+            <Button className="bg-gradient-primary text-primary-foreground">Sign Up</Button>
+          </div>
           <ThemeToggle />
         </div>
       </div>
