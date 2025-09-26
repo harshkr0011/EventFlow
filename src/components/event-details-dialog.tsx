@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 type EventDetailsDialogProps = {
   event: Event | null;
@@ -42,18 +43,18 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
 
   return (
     <Dialog open={!!event} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl p-0">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="relative h-64 md:h-full min-h-[300px] md:min-h-0">
-                <Image
-                  src={placeholder?.imageUrl || `https://picsum.photos/seed/${event.id}/600/800`}
-                  alt={event.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
-                  data-ai-hint={placeholder?.imageHint || 'event portrait'}
-                />
-            </div>
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0 grid grid-cols-1 md:grid-cols-2">
+        <div className="relative h-64 md:h-full">
+            <Image
+              src={placeholder?.imageUrl || `https://picsum.photos/seed/${event.id}/600/800`}
+              alt={event.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
+              data-ai-hint={placeholder?.imageHint || 'event portrait'}
+            />
+        </div>
+        <ScrollArea className="h-full">
             <div className="p-6 flex flex-col">
               <DialogHeader className="mb-4">
                 <Badge variant="secondary" className="w-fit mb-2">{event.category}</Badge>
@@ -68,7 +69,7 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
                 <div className="flex items-center"><MapPin className="mr-2 h-4 w-4 text-primary" /> {event.venue}</div>
               </div>
               
-              <p className="mb-6 text-foreground flex-grow">{event.description}</p>
+              <p className="mb-6 text-foreground">{event.description}</p>
               
               <div className="flex items-center justify-between mb-4">
                 <p className="text-2xl font-bold text-primary">₹{event.price}</p>
@@ -99,7 +100,7 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
 
               <div>
                 <h4 className="font-semibold mb-2 flex items-center"><MessageSquare className="mr-2 h-4 w-4 text-primary"/> Comments</h4>
-                <div className="space-y-4 max-h-32 overflow-y-auto pr-2">
+                <div className="space-y-4 pr-2">
                   {mockComments.map((comment, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <Avatar>
@@ -119,7 +120,7 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
                 </div>
               </div>
             </div>
-        </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );
