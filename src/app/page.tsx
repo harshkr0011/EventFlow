@@ -18,17 +18,22 @@ import { useDebounce } from '@/hooks/use-debounce';
 export default function Home() {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>([]);
-  const [bookmarkedEvents, setBookmarkedEvents] = React.useState<Set<string>>(
-    () => {
-      if (typeof window === 'undefined') {
-        return new Set();
-      }
-      const saved = localStorage.getItem('bookmarkedEvents');
-      return saved ? new Set(JSON.parse(saved)) : new Set();
-    }
-  );
+  const [bookmarkedEvents, setBookmarkedEvents] = React.useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = React.useState('all');
   const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+    try {
+      const saved = localStorage.getItem('bookmarkedEvents');
+      if (saved) {
+        setBookmarkedEvents(new Set(JSON.parse(saved)));
+      }
+    } catch (error) {
+      console.error('Failed to parse bookmarked events from localStorage', error);
+    }
+  }, []);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
@@ -70,7 +75,9 @@ export default function Home() {
       newBookmarkedEvents.add(eventId);
     }
     setBookmarkedEvents(newBookmarkedEvents);
-    localStorage.setItem('bookmarkedEvents', JSON.stringify(Array.from(newBookmarkedEvents)));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('bookmarkedEvents', JSON.stringify(Array.from(newBookmarkedEvents)));
+    }
   };
 
   return (
@@ -107,6 +114,7 @@ export default function Home() {
               onEventClick={setSelectedEvent}
               bookmarkedEvents={bookmarkedEvents}
               toggleBookmark={toggleBookmark}
+              isClient={isClient}
             />
           </div>
         </div>

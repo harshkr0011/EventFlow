@@ -7,9 +7,10 @@ type EventListProps = {
   onEventClick: (event: Event) => void;
   bookmarkedEvents: Set<string>;
   toggleBookmark: (eventId: string) => void;
+  isClient: boolean;
 };
 
-export function EventList({ events, onEventClick, bookmarkedEvents, toggleBookmark }: EventListProps) {
+export function EventList({ events, onEventClick, bookmarkedEvents, toggleBookmark, isClient }: EventListProps) {
   if (events.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center text-center h-96 rounded-lg bg-muted/50">
@@ -17,6 +18,10 @@ export function EventList({ events, onEventClick, bookmarkedEvents, toggleBookma
         <p className="text-muted-foreground">Try adjusting your filters or search term.</p>
       </div>
     );
+  }
+
+  if (!isClient) {
+    return null;
   }
 
   return (
