@@ -19,6 +19,7 @@ export type LoginFormData = {
 
 export type SignupFormData = {
     email: string;
+    phoneNumber: string;
     password: string;
     confirmPassword?: string;
 }

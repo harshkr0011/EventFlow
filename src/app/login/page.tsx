@@ -21,6 +21,7 @@ const loginSchema = z.object({
 const signupSchema = z
   .object({
     email: z.string().email({ message: 'Invalid email address' }),
+    phoneNumber: z.string().min(10, { message: 'Phone number must be at least 10 digits' }),
     password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
     confirmPassword: z.string(),
   })
@@ -54,8 +55,11 @@ function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function AuthPage() {
   const [isRightPanelActive, setRightPanelActive] = React.useState(false);
-  const { login, signup, signInWithGoogle } = useAuth();
+  const { login, signup, signInWithGoogle, signInWithPhoneNumber } = useAuth();
   const { toast } = useToast();
+  const [otp, setOtp] = React.useState('');
+  const [confirmationResult, setConfirmationResult] = React.useState<any>(null);
+  const [showOtpInput, setShowOtpInput] = React.useState(false);
 
   const {
     register: registerLogin,
@@ -87,7 +91,13 @@ export default function AuthPage() {
   
   const onSignupSubmit = async (data: SignupFormData) => {
     try {
-      await signup(data);
+      const result = await signInWithPhoneNumber(data.phoneNumber);
+      setConfirmationResult(result);
+      setShowOtpInput(true);
+       toast({
+        title: 'OTP Sent',
+        description: 'Please check your phone for the verification code.',
+      });
     } catch (error: any) {
       toast({
         variant: 'destructive',
@@ -96,6 +106,29 @@ export default function AuthPage() {
       });
     }
   };
+
+  const handleOtpSubmit = async () => {
+    if (!confirmationResult) return;
+    try {
+        await confirmationResult.confirm(otp);
+        // OTP is verified, now you can create the user with email/password
+        // or link the phone number to an existing account.
+        // For simplicity, we'll just log a success message.
+        toast({
+            title: 'Phone Verified!',
+            description: 'Your phone number has been successfully verified.',
+        });
+        // Here you would typically proceed with creating the user account
+        // using the data from the signup form.
+        setShowOtpInput(false);
+    } catch (error: any) {
+        toast({
+            variant: 'destructive',
+            title: 'OTP Verification Failed',
+            description: error.message || 'An unexpected error occurred.',
+        });
+    }
+  }
 
   const handleGoogleSignIn = async () => {
     try {
@@ -111,34 +144,53 @@ export default function AuthPage() {
 
   return (
     <div className="auth-body">
+      <div id="recaptcha-container"></div>
       <div className={`container ${isRightPanelActive ? 'right-panel-active' : ''}`} id="container">
         <div className="form-container sign-up-container">
-          <form onSubmit={handleSignupSubmit(onSignupSubmit)}>
-            <h1>Create Account</h1>
-            <div className="social-container">
-              <a href="#" className="social" onClick={handleGoogleSignIn}><GoogleIcon className='h-5 w-5'/></a>
-              <a href="#" className="social"><Facebook className='h-5 w-5'/></a>
-              <a href="#" className="social"><Linkedin className='h-5 w-5'/></a>
+          {!showOtpInput ? (
+            <form onSubmit={handleSignupSubmit(onSignupSubmit)}>
+              <h1>Create Account</h1>
+              <div className="social-container">
+                <a href="#" className="social"><Facebook className='h-5 w-5'/></a>
+                <a href="#" className="social"><Linkedin className='h-5 w-5'/></a>
+              </div>
+              <span>or use your email for registration</span>
+              <input type="email" placeholder="Email" {...registerSignup('email')} />
+              {signupErrors.email && <p className="error-message">{signupErrors.email.message}</p>}
+              <input type="tel" placeholder="Phone Number" {...registerSignup('phoneNumber')} />
+              {signupErrors.phoneNumber && <p className="error-message">{signupErrors.phoneNumber.message}</p>}
+              <input type="password" placeholder="Password" {...registerSignup('password')} />
+              {signupErrors.password && <p className="error-message">{signupErrors.password.message}</p>}
+              <input type="password" placeholder="Confirm Password" {...registerSignup('confirmPassword')} />
+              {signupErrors.confirmPassword && <p className="error-message">{signupErrors.confirmPassword.message}</p>}
+              <button type="submit" disabled={isSigningUp}>
+                {isSigningUp ? 'Sending OTP...' : 'Sign Up'}
+              </button>
+            </form>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full text-center">
+                <h1 className='text-black'>Enter OTP</h1>
+                <p className="text-muted-foreground">A 6-digit code has been sent to your phone.</p>
+                <input
+                    type="text"
+                    placeholder="Enter OTP"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    maxLength={6}
+                    className="w-full"
+                />
+                <button onClick={handleOtpSubmit}>Verify OTP</button>
             </div>
-            <span>or use your email for registration</span>
-            <input type="email" placeholder="Email" {...registerSignup('email')} />
-            {signupErrors.email && <p className="error-message">{signupErrors.email.message}</p>}
-            <input type="password" placeholder="Password" {...registerSignup('password')} />
-            {signupErrors.password && <p className="error-message">{signupErrors.password.message}</p>}
-            <input type="password" placeholder="Confirm Password" {...registerSignup('confirmPassword')} />
-            {signupErrors.confirmPassword && <p className="error-message">{signupErrors.confirmPassword.message}</p>}
-            <button type="submit" disabled={isSigningUp}>
-              {isSigningUp ? 'Signing up...' : 'Sign Up'}
-            </button>
-          </form>
+          )}
         </div>
         <div className="form-container sign-in-container">
           <form onSubmit={handleLoginSubmit(onLoginSubmit)}>
             <h1>Sign in</h1>
-            <div className="social-container">
-              <a href="#" className="social" onClick={handleGoogleSignIn}><GoogleIcon className='h-5 w-5'/></a>
-              <a href="#" className="social"><Facebook className='h-5 w-5'/></a>
-              <a href="#" className="social"><Linkedin className='h-5 w-5'/></a>
+            <div className="my-4">
+              <Button onClick={handleGoogleSignIn} variant="outline" className="w-full">
+                <GoogleIcon className="mr-2 h-5 w-5" />
+                Continue with Google
+              </Button>
             </div>
             <span>or use your account</span>
             <input type="email" placeholder="Email" {...registerLogin('email')} />

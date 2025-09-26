@@ -2,7 +2,21 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signOut, type User, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, getAuth, type Auth } from 'firebase/auth';
+import {
+  onAuthStateChanged,
+  signOut,
+  type User,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+  getAuth,
+  type Auth,
+  RecaptchaVerifier,
+  signInWithPhoneNumber as firebaseSignInWithPhoneNumber,
+  type ConfirmationResult,
+} from 'firebase/auth';
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { useRouter } from 'next/navigation';
 import type { LoginFormData, SignupFormData } from '@/lib/types';
@@ -15,6 +29,7 @@ type AuthContextType = {
   signup: (data: SignupFormData) => Promise<void>;
   logout: () => void;
   signInWithGoogle: () => Promise<void>;
+  signInWithPhoneNumber: (phoneNumber: string) => Promise<ConfirmationResult>;
   sendPasswordReset: (email: string) => Promise<void>;
 };
 
@@ -35,8 +50,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(user);
       setLoading(false);
     });
+
     return () => unsubscribe();
   }, []);
+
+  const setupRecaptcha = (authInstance: Auth) => {
+    if (typeof window !== 'undefined' && (window as any).recaptchaVerifier) {
+      (window as any).recaptchaVerifier.clear();
+    }
+    
+    const recaptchaContainer = document.getElementById('recaptcha-container');
+    if (!recaptchaContainer) {
+      const el = document.createElement('div');
+      el.id = 'recaptcha-container';
+      document.body.appendChild(el);
+    }
+    
+    (window as any).recaptchaVerifier = new RecaptchaVerifier(authInstance, 'recaptcha-container', {
+      'size': 'invisible',
+      'callback': (response: any) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+      },
+      'expired-callback': () => {
+        // Response expired. Ask user to solve reCAPTCHA again.
+      }
+    });
+  }
 
   const login = async (data: LoginFormData) => {
     if (!auth) return;
@@ -94,6 +133,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const signInWithPhoneNumber = async (phoneNumber: string): Promise<ConfirmationResult> => {
+    if (!auth) throw new Error("Auth not initialized");
+    setupRecaptcha(auth);
+    const appVerifier = (window as any).recaptchaVerifier;
+    return firebaseSignInWithPhoneNumber(auth, phoneNumber, appVerifier);
+  };
+
   const sendPasswordReset = async (email: string) => {
     if (!auth) return;
     setLoading(true);
@@ -107,7 +153,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const value = { user, loading, login, signup, logout, signInWithGoogle, sendPasswordReset };
+  const value = { user, loading, login, signup, logout, signInWithGoogle, signInWithPhoneNumber, sendPasswordReset };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
