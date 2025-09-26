@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { MessageSquarePlus, Send, X, Bot, User } from 'lucide-react';
+import { Bot, Send, X, User } from 'lucide-react';
 import { chat } from '@/ai/flows/chatbot-flow';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -85,35 +85,35 @@ export function Chatbot() {
   return (
     <>
       <Button
-        className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-lg z-50 bg-gradient-primary text-primary-foreground"
+        className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-lg z-50 bg-gradient-primary text-primary-foreground animate-pulse-glow"
         onClick={toggleChat}
         aria-label="Open chatbot"
       >
-        {isOpen ? <X className="h-8 w-8" /> : <MessageSquarePlus className="h-8 w-8" />}
+        {isOpen ? <X className="h-8 w-8" /> : <Bot className="h-8 w-8" />}
       </Button>
 
       {isOpen && (
-        <Card className="fixed bottom-24 right-6 w-full max-w-xs h-[70vh] z-50 shadow-2xl flex flex-col animate-fade-in rounded-lg">
+        <Card className="fixed bottom-24 right-6 w-full max-w-sm h-[60vh] z-50 shadow-2xl flex flex-col rounded-lg bg-card/80 backdrop-blur-lg border border-border/20 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=right]:slide-in-from-left-0 data-[side=left]:slide-in-from-right-2 data-[side=top]:slide-in-from-bottom-2">
           <CardHeader className="flex flex-row items-center justify-between border-b">
             <CardTitle className="flex items-center gap-2 text-lg">
                 <Bot className="text-primary" /> EventFlow Assistant
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 p-0 overflow-hidden flex flex-col">
+          <CardContent className="flex-1 p-0 flex flex-col min-h-0">
              <ScrollArea className="h-full" viewportRef={viewportRef}>
                 <div className="p-4 space-y-2">
                 {messages.map((msg) => (
                     <div
                     key={msg.id}
                     className={cn(
-                        'flex items-start gap-3',
+                        'flex items-start gap-2',
                         msg.sender === 'user' ? 'justify-end' : 'justify-start'
                     )}
                     >
-                    {msg.sender === 'bot' && <Bot className="h-6 w-6 text-primary flex-shrink-0" />}
+                    {msg.sender === 'bot' && <Bot className="h-5 w-5 text-primary flex-shrink-0" />}
                     <div
                         className={cn(
-                        'rounded-lg px-3 py-2 max-w-[85%] break-word text-sm',
+                        'rounded-lg px-3 py-2 max-w-[85%] break-word text-xs',
                         msg.sender === 'user'
                             ? 'bg-primary text-primary-foreground'
                             : 'bg-muted text-muted-foreground'
@@ -121,12 +121,12 @@ export function Chatbot() {
                     >
                         {msg.text}
                     </div>
-                    {msg.sender === 'user' && <User className="h-6 w-6 text-muted-foreground flex-shrink-0" />}
+                    {msg.sender === 'user' && <User className="h-5 w-5 text-muted-foreground flex-shrink-0" />}
                     </div>
                 ))}
                 {loading && (
                     <div className="flex items-start gap-3 justify-start">
-                        <Bot className="h-6 w-6 text-primary flex-shrink-0" />
+                        <Bot className="h-5 w-5 text-primary flex-shrink-0" />
                         <div className="rounded-lg px-3 py-2 bg-muted text-muted-foreground">
                             <span className="animate-pulse">...</span>
                         </div>
