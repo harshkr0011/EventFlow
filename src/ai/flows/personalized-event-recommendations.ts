@@ -27,7 +27,7 @@ export type PersonalizedEventRecommendationsInput = z.infer<
 const PersonalizedEventRecommendationsOutputSchema = z.object({
   recommendedEvents: z
     .array(z.string())
-    .describe('An array of recommended events based on user preferences.'),
+    .describe('An array of recommended events based on user preferences. This should be a subset of the list of all available events provided.'),
 });
 export type PersonalizedEventRecommendationsOutput = z.infer<
   typeof PersonalizedEventRecommendationsOutputSchema
@@ -51,7 +51,7 @@ User Preferences: {{userPreferences}}
 Past Booking History: {{pastBookingHistory}}
 All Available Events: {{allEvents}}
 
-Based on the user preferences and past booking history, recommend events from the list of all available events.
+Based on the user preferences and past booking history, recommend events from the list of all available events. Your response should only include event titles from the "All Available Events" list.
 `,
 });
 
