@@ -58,21 +58,21 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
             <div className="p-6">
               <DialogHeader className="mb-4">
                 <Badge variant="secondary" className="w-fit mb-2">{event.category}</Badge>
-                <DialogTitle className="text-3xl font-bold">{event.title}</DialogTitle>
-                <DialogDescription className="text-base text-muted-foreground">
+                <DialogTitle className="text-2xl md:text-3xl font-bold">{event.title}</DialogTitle>
+                <DialogDescription className="text-sm md:text-base text-muted-foreground">
                   Organized by {event.organizer}
                 </DialogDescription>
               </DialogHeader>
 
-              <div className="space-y-3 text-muted-foreground mb-4">
+              <div className="space-y-3 text-muted-foreground mb-4 text-sm md:text-base">
                 <div className="flex items-center"><Calendar className="mr-2 h-4 w-4 text-primary" /> {new Date(event.date).toLocaleString('en-IN')}</div>
                 <div className="flex items-center"><MapPin className="mr-2 h-4 w-4 text-primary" /> {event.venue}</div>
               </div>
               
-              <p className="mb-6 text-foreground">{event.description}</p>
+              <p className="mb-6 text-foreground text-sm md:text-base">{event.description}</p>
               
               <div className="flex items-center justify-between mb-4">
-                <p className="text-2xl font-bold text-primary">₹{event.price}</p>
+                <p className="text-xl md:text-2xl font-bold text-primary">₹{event.price}</p>
                 <Button className="bg-gradient-primary text-primary-foreground font-bold" size="lg">Book Now</Button>
               </div>
 
