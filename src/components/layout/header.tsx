@@ -4,6 +4,8 @@ import { ThemeToggle } from '../theme-toggle';
 import { Input } from '../ui/input';
 import { Button } from '@/components/ui/button';
 import type { Dispatch, SetStateAction } from 'react';
+import { useAuth } from '@/hooks/use-auth';
+import Link from 'next/link';
 
 type HeaderProps = {
   searchTerm: string;
@@ -12,6 +14,8 @@ type HeaderProps = {
 };
 
 export function Header({ searchTerm, setSearchTerm, setShowFilters }: HeaderProps) {
+  const { user, logout } = useAuth();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-lg border-border/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center">
@@ -43,8 +47,14 @@ export function Header({ searchTerm, setSearchTerm, setShowFilters }: HeaderProp
             </Button>
           )}
           <div className="hidden sm:flex items-center gap-2">
-            <Button variant="ghost">Log In</Button>
-            <Button className="bg-gradient-primary text-primary-foreground">Sign Up</Button>
+            {user ? (
+              <Button variant="ghost" onClick={logout}>Log Out</Button>
+            ) : (
+              <>
+                <Button variant="ghost" asChild><Link href="/login">Log In</Link></Button>
+                <Button className="bg-gradient-primary text-primary-foreground" asChild><Link href="/signup">Sign Up</Link></Button>
+              </>
+            )}
           </div>
           <ThemeToggle />
         </div>
