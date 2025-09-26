@@ -11,6 +11,7 @@ import type { Event } from '@/lib/types';
 import { EventList } from './event-list';
 import { Wand2 } from 'lucide-react';
 import { Skeleton } from './ui/skeleton';
+import { useToast } from '@/hooks/use-toast';
 
 type RecommendationToolProps = {
     allEvents: Event[];
@@ -23,6 +24,7 @@ export function RecommendationTool({ allEvents, onEventClick }: RecommendationTo
   const [loading, setLoading] = React.useState(false);
   const [bookmarkedEvents, setBookmarkedEvents] = React.useState<Set<string>>(new Set());
   const [isClient, setIsClient] = React.useState(false);
+  const { toast } = useToast();
 
   React.useEffect(() => {
     setIsClient(true);
@@ -70,6 +72,11 @@ export function RecommendationTool({ allEvents, onEventClick }: RecommendationTo
       setRecommendedEvents(recommended);
     } catch (error) {
       console.error('Failed to get recommendations:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'Could not fetch recommendations. Please try again later.',
+      });
     } finally {
       setLoading(false);
     }
