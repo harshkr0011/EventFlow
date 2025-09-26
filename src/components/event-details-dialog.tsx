@@ -9,7 +9,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Bookmark, Calendar, Facebook, Linkedin, MapPin, Twitter, Share2, CalendarPlus } from 'lucide-react';
+import { Bookmark, Calendar, Facebook, Linkedin, MapPin, Twitter, Share2, CalendarPlus, Leaf } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -88,6 +88,22 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
               </div>
 
               <Separator className="my-4" />
+
+              {event.sustainability && event.sustainability.length > 0 && (
+                <>
+                  <div className="mb-4">
+                    <h4 className="font-semibold mb-3 flex items-center">
+                      <Leaf className="mr-2 h-5 w-5 text-green-500" /> Sustainability Tips
+                    </h4>
+                    <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                      {event.sustainability.map((tip, index) => (
+                        <li key={index}>{tip}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <Separator className="my-4" />
+                </>
+              )}
 
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-2">

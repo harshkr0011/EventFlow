@@ -12,6 +12,7 @@ export const allEvents: Event[] = [
     price: 7500,
     imageId: 'event-sunburn-goa',
     category: 'Featured',
+    sustainability: ['Dispose of waste responsibly', 'Use provided shuttle services', 'Stay hydrated with reusable bottles'],
   },
   {
     id: '10',
@@ -23,6 +24,7 @@ export const allEvents: Event[] = [
     price: 5000,
     imageId: 'event-ipl-final',
     category: 'Featured',
+    sustainability: ['Use public transport to reach the stadium', 'Keep the stadium clean', 'Digital tickets preferred'],
   },
     {
     id: '5',
@@ -34,6 +36,7 @@ export const allEvents: Event[] = [
     price: 1000,
     imageId: 'event-jaipur-lit',
     category: 'Featured',
+    sustainability: ['Carry reusable bags for books', 'Use digital schedules', 'Support local artisans'],
   },
   {
     id: '9',
@@ -45,6 +48,7 @@ export const allEvents: Event[] = [
     price: 0,
     imageId: 'event-chhath-puja',
     category: 'Culture',
+    sustainability: ['Keep the ghats clean', 'Use natural and biodegradable materials for offerings', 'Avoid plastic'],
   },
   {
     id: '1',
@@ -56,6 +60,7 @@ export const allEvents: Event[] = [
     price: 500,
     imageId: 'event-diwali',
     category: 'Culture',
+    sustainability: ['Use eco-friendly diyas and lights', 'Celebrate with community, reduce individual firework usage', 'Minimize food waste'],
   },
   {
     id: '2',
@@ -67,6 +72,7 @@ export const allEvents: Event[] = [
     price: 800,
     imageId: 'event-holi',
     category: 'Music',
+    sustainability: ['Use organic, natural colors', 'Conserve water', 'Protect local environment'],
   },
   {
     id: '3',
@@ -78,6 +84,7 @@ export const allEvents: Event[] = [
     price: 1500,
     imageId: 'event-film-fest-mumbai',
     category: 'Film',
+    sustainability: ['Opt for digital tickets and schedules', 'Use public transport', 'Bring a reusable water bottle'],
   },
   {
     id: '6',
@@ -89,6 +96,7 @@ export const allEvents: Event[] = [
     price: 3000,
     imageId: 'event-bangalore-tech',
     category: 'Tech',
+    sustainability: ['Network digitally', 'Use event app for info', 'Travel green'],
   },
   {
     id: '7',
@@ -100,6 +108,7 @@ export const allEvents: Event[] = [
     price: 250,
     imageId: 'event-kochi-biennale',
     category: 'Art',
+    sustainability: ['Respect the art and venues', 'Support local artists by purchasing their work', 'Explore the city on foot or by bike'],
   },
   {
     id: '8',
@@ -111,6 +120,7 @@ export const allEvents: Event[] = [
     price: 300,
     imageId: 'event-delhi-food',
     category: 'Food',
+    sustainability: ['Bring your own reusable cutlery', 'Minimize food waste', 'Dispose of waste in designated bins'],
   },
   {
     id: '21',
@@ -122,6 +132,7 @@ export const allEvents: Event[] = [
     price: 50,
     imageId: 'event-aam-mahotsav',
     category: 'Food',
+    sustainability: ['Support local farmers', 'Dispose of mango pits and peels properly', 'Bring your own bag'],
   },
   {
     id: '11',
@@ -133,6 +144,7 @@ export const allEvents: Event[] = [
     price: 100,
     imageId: 'event-pushkar-fair',
     category: 'Culture',
+    sustainability: ['Respect the animals and local culture', 'Buy from local artisans', 'Do not litter'],
   },
   {
     id: '12',
@@ -144,6 +156,7 @@ export const allEvents: Event[] = [
     price: 400,
     imageId: 'event-mysore-dasara',
     category: 'Culture',
+    sustainability: ['Use public transport to avoid congestion', 'Follow designated viewing areas', 'Keep the city clean'],
   },
   {
     id: '13',
@@ -155,6 +168,7 @@ export const allEvents: Event[] = [
     price: 6000,
     imageId: 'event-ziro-music',
     category: 'Music',
+    sustainability: ['Respect the pristine natural environment', 'Camp responsibly', 'Support local communities'],
   },
   {
     id: '14',
@@ -166,6 +180,7 @@ export const allEvents: Event[] = [
     price: 50,
     imageId: 'event-kolkata-book-fair',
     category: 'Art',
+    sustainability: ['Bring your own bag for books', 'Donate old books', 'Use public transport'],
   },
   {
     id: '15',
@@ -177,6 +192,7 @@ export const allEvents: Event[] = [
     price: 8000,
     imageId: 'event-rann-utsav',
     category: 'Culture',
+    sustainability: ['Respect the fragile desert ecosystem', 'Buy authentic local handicrafts', 'Conserve water'],
   },
   {
     id: '16',
@@ -188,6 +204,7 @@ export const allEvents: Event[] = [
     price: 4000,
     imageId: 'event-nh7-weekender',
     category: 'Music',
+    sustainability: ['Carpool with friends', 'Use the recycling bins', 'Bring a reusable water bottle'],
   },
   {
     id: '17',
@@ -199,6 +216,7 @@ export const allEvents: Event[] = [
     price: 2000,
     imageId: 'event-yoga-festival',
     category: 'Wellness',
+    sustainability: ['Embrace a mindful and clean lifestyle', 'Respect the ashram rules', 'Use a reusable yoga mat'],
   },
   {
     id: '18',
@@ -210,6 +228,7 @@ export const allEvents: Event[] = [
     price: 200,
     imageId: 'event-hornbill-festival',
     category: 'Culture',
+    sustainability: ['Respect tribal traditions and customs', 'Purchase authentic Naga crafts', 'Do not litter the heritage village'],
   },
   {
     id: '19',
@@ -221,6 +240,7 @@ export const allEvents: Event[] = [
     price: 700,
     imageId: 'event-india-art-fair',
     category: 'Art',
+    sustainability: ['Use the digital guide', 'Handle artworks with care', 'Support emerging artists'],
   },
   {
     id: '20',
@@ -232,6 +252,7 @@ export const allEvents: Event[] = [
     price: 500,
     imageId: 'event-indian-food-fest',
     category: 'Food',
+    sustainability: ['Avoid single-use plastics', 'Share food to reduce waste', 'Clean up your table'],
   }
 ];
 

@@ -10,6 +10,7 @@ export type Event = {
   price: number;
   imageId: string;
   category: string;
+  sustainability?: string[];
 };
 
 export type LoginFormData = {
