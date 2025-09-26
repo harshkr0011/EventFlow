@@ -35,6 +35,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'blogs.tripzygo.in',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
