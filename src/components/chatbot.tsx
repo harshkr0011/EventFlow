@@ -26,6 +26,8 @@ export function Chatbot() {
   const [loading, setLoading] = React.useState(false);
   const { toast } = useToast();
   const scrollAreaRef = React.useRef<HTMLDivElement>(null);
+  const viewportRef = React.useRef<HTMLDivElement>(null);
+
 
   const toggleChat = () => setIsOpen(!isOpen);
 
@@ -57,9 +59,9 @@ export function Chatbot() {
   };
   
   React.useEffect(() => {
-    if (scrollAreaRef.current) {
-        scrollAreaRef.current.scrollTo({
-            top: scrollAreaRef.current.scrollHeight,
+    if (viewportRef.current) {
+        viewportRef.current.scrollTo({
+            top: viewportRef.current.scrollHeight,
             behavior: 'smooth'
         });
     }
@@ -83,9 +85,9 @@ export function Chatbot() {
                 <Bot className="text-primary" /> EventFlow Assistant
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="flex-1 p-0 overflow-hidden">
              <ScrollArea className="h-full" ref={scrollAreaRef as any}>
-                <div className="p-4 space-y-4">
+                <div className="p-4 space-y-4" ref={viewportRef}>
                 {messages.map((msg) => (
                     <div
                     key={msg.id}
@@ -97,7 +99,7 @@ export function Chatbot() {
                     {msg.sender === 'bot' && <Bot className="h-6 w-6 text-primary flex-shrink-0" />}
                     <div
                         className={cn(
-                        'rounded-lg px-3 py-2 max-w-[80%] break-words',
+                        'rounded-lg px-3 py-2 max-w-[80%] break-word',
                         msg.sender === 'user'
                             ? 'bg-primary text-primary-foreground'
                             : 'bg-muted text-muted-foreground'
