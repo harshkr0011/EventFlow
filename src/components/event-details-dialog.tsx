@@ -44,12 +44,13 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
     <Dialog open={!!event} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl p-0">
         <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="relative h-64 md:h-full">
+            <div className="relative h-64 md:h-full min-h-[300px] md:min-h-0">
                 <Image
                   src={placeholder?.imageUrl || `https://picsum.photos/seed/${event.id}/600/800`}
                   alt={event.title}
                   fill
-                  className="object-cover rounded-l-lg"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
                   data-ai-hint={placeholder?.imageHint || 'event portrait'}
                 />
             </div>

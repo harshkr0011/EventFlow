@@ -11,9 +11,10 @@ type EventCardProps = {
   onEventClick: (event: Event) => void;
   isBookmarked: boolean;
   toggleBookmark: (eventId: string) => void;
+  isClient: boolean;
 };
 
-export function EventCard({ event, onEventClick, isBookmarked, toggleBookmark }: EventCardProps) {
+export function EventCard({ event, onEventClick, isBookmarked, toggleBookmark, isClient }: EventCardProps) {
   const placeholder = PlaceHolderImages.find((p) => p.id === event.imageId);
 
   const handleBookmarkClick = (e: React.MouseEvent) => {
@@ -33,15 +34,15 @@ export function EventCard({ event, onEventClick, isBookmarked, toggleBookmark }:
         onClick={handleBookmarkClick}
         aria-label="Bookmark event"
       >
-        <Bookmark className={isBookmarked ? 'fill-white' : ''} />
+        <Bookmark className={isClient && isBookmarked ? 'fill-white' : ''} />
       </Button>
-      <div className="overflow-hidden">
+      <div className="relative h-48 w-full overflow-hidden">
         <Image
           src={placeholder?.imageUrl || `https://picsum.photos/seed/${event.id}/400/250`}
           alt={event.title}
-          width={400}
-          height={250}
-          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
           data-ai-hint={placeholder?.imageHint || 'event'}
         />
       </div>
