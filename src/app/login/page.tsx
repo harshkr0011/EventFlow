@@ -10,7 +10,8 @@ import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import '../auth.css';
 import { LoginFormData, SignupFormData } from '@/lib/types';
-import { Facebook, Linkedin, Twitter } from 'lucide-react';
+import { Facebook, Linkedin, Twitter, ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -165,6 +166,12 @@ export default function AuthPage() {
           </div>
         </div>
       </div>
+      <Button variant="link" asChild className="mt-4">
+        <Link href="/landing">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Home
+        </Link>
+      </Button>
     </div>
   );
 }
