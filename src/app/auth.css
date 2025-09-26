@@ -228,3 +228,66 @@
     font-size: 12px;
     margin: -5px 0 10px;
 }
+
+
+@media (max-width: 768px) {
+    .auth-body .container {
+        width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .auth-body .form-container {
+        width: 100%;
+        position: static;
+        height: auto;
+    }
+
+    .auth-body .sign-in-container {
+        top: 0;
+        height: 50%;
+    }
+
+    .auth-body .sign-up-container {
+        top: 0;
+        height: 50%;
+        opacity: 1;
+        z-index: 2;
+    }
+
+    .auth-body .overlay-container {
+        display: none;
+    }
+
+    .auth-body .container.right-panel-active .sign-in-container {
+        transform: translateY(100%);
+    }
+
+    .auth-body .container.right-panel-active .sign-up-container {
+        transform: translateY(100%);
+        opacity: 1;
+        z-index: 5;
+        animation: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-body {
+        height: auto;
+        padding: 20px 0;
+    }
+    
+    .auth-body .container {
+        min-height: auto;
+    }
+
+    .auth-body .sign-in-container, .auth-body .sign-up-container {
+        height: auto;
+        padding: 20px 0;
+    }
+    
+    .auth-body form {
+        padding: 0 20px;
+    }
+}
