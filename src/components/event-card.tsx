@@ -48,11 +48,11 @@ export function EventCard({ event, onEventClick, isBookmarked, toggleBookmark }:
       <CardContent className="p-4">
         <div className="flex justify-between items-start">
           <h3 className="text-lg font-bold tracking-tight mb-1 truncate">{event.title}</h3>
-          <p className="text-lg font-bold text-primary">${event.price}</p>
+          <p className="text-lg font-bold text-primary">₹{event.price}</p>
         </div>
         <div className="flex items-center text-sm text-muted-foreground mb-2">
           <Calendar className="mr-2 h-4 w-4" />
-          <span>{new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+          <span>{new Date(event.date).toLocaleDateString('en-IN', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
         </div>
         <div className="flex items-center text-sm text-muted-foreground mb-4">
           <MapPin className="mr-2 h-4 w-4" />

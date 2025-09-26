@@ -30,8 +30,8 @@ const socialPlatforms = [
 ];
 
 const mockComments = [
-    { user: 'Alex D.', text: "Can't wait for this! Looks amazing.", avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d' },
-    { user: 'Sara K.', text: 'Is there parking available?', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026705d' },
+    { user: 'Aarav S.', text: "Can't wait for this! Looks amazing.", avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d' },
+    { user: 'Priya K.', text: 'Is there parking available?', avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026705d' },
 ];
 
 export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBookmark }: EventDetailsDialogProps) {
@@ -63,14 +63,14 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
               </DialogHeader>
 
               <div className="space-y-3 text-muted-foreground mb-4">
-                <div className="flex items-center"><Calendar className="mr-2 h-4 w-4 text-primary" /> {new Date(event.date).toLocaleString()}</div>
+                <div className="flex items-center"><Calendar className="mr-2 h-4 w-4 text-primary" /> {new Date(event.date).toLocaleString('en-IN')}</div>
                 <div className="flex items-center"><MapPin className="mr-2 h-4 w-4 text-primary" /> {event.venue}</div>
               </div>
               
               <p className="mb-6 text-foreground flex-grow">{event.description}</p>
               
               <div className="flex items-center justify-between mb-4">
-                <p className="text-2xl font-bold text-primary">${event.price}</p>
+                <p className="text-2xl font-bold text-primary">₹{event.price}</p>
                 <Button className="bg-gradient-primary text-primary-foreground font-bold" size="lg">Book Now</Button>
               </div>
 

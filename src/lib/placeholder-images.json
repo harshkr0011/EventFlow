@@ -1,52 +1,52 @@
 {
   "placeholderImages": [
     {
-      "id": "event-music-fest",
-      "description": "A vibrant music festival at sunset.",
-      "imageUrl": "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNpYyUyMGZlc3RpdmFsfGVufDB8fHx8MTc1ODgwOTQyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "id": "event-diwali",
+      "description": "A celebration of Diwali with lights and fireworks.",
+      "imageUrl": "https://images.unsplash.com/photo-1604207863533-479758753234?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkaXdhbGl8ZW58MHx8fHwxNzU4ODc1MDI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "diwali festival"
+    },
+    {
+      "id": "event-holi",
+      "description": "People celebrating Holi festival with colors.",
+      "imageUrl": "https://images.unsplash.com/photo-1519624042459-f0275811654e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxob2xpJTIwZmVzdGl2YWx8ZW58MHx8fHwxNzU4ODc1MDUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "holi festival"
+    },
+    {
+      "id": "event-film-fest-mumbai",
+      "description": "A large cinema screen in an auditorium.",
+      "imageUrl": "https://images.unsplash.com/photo-1628838463043-b81a343794d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxnb3VybWV0JTIwZm9vZHxlbnwwfHx8fDE3NTg4MDAyMjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "film festival"
+    },
+    {
+      "id": "event-sunburn-goa",
+      "description": "A beach party with a large crowd and a stage.",
+      "imageUrl": "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtdXNpYyUyMGZlc3RpdmFsfGVufDB8fHx8MTc1ODg3NTA4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "music festival"
     },
     {
-      "id": "event-tech-conference",
-      "description": "A modern conference hall with a speaker on stage.",
+      "id": "event-jaipur-lit",
+      "description": "An outdoor literary event with people seated and listening.",
+      "imageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxib29rcyUyMGxpYnJhcnl8ZW58MHx8fHwxNzU4ODc1MTIwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "literature festival"
+    },
+    {
+      "id": "event-bangalore-tech",
+      "description": "Modern building with futuristic architecture for a tech summit.",
       "imageUrl": "https://images.unsplash.com/photo-1582192493926-93f4847e1323?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx0ZWNoJTIwY29uZmVyZW5jZXxlbnwwfHx8fDE3NTg3ODUwNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "tech conference"
+      "imageHint": "tech summit"
     },
     {
-      "id": "event-food-expo",
-      "description": "A table full of gourmet food and wine glasses.",
-      "imageUrl": "https://images.unsplash.com/photo-1628838463043-b81a343794d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxnb3VybWV0JTIwZm9vZHxlbnwwfHx8fDE3NTg4MDAyMjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "gourmet food"
-    },
-    {
-      "id": "event-marathon",
-      "description": "Runners at the start line of a city marathon.",
-      "imageUrl": "https://images.unsplash.com/photo-1590333748338-d629e4564ad9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtYXJhdGhvbiUyMHJ1bm5pbmd8ZW58MHx8fHwxNzU4ODU2MTczfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "marathon running"
-    },
-    {
-      "id": "event-art-exhibit",
-      "description": "People looking at paintings in a modern art gallery.",
+      "id": "event-kochi-biennale",
+      "description": "Contemporary art installation at an exhibition.",
       "imageUrl": "https://images.unsplash.com/photo-1507643179773-3e975d7ac515?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcnQlMjBnYWxsZXJ5fGVufDB8fHx8MTc1ODc5MDEyNHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "art gallery"
+      "imageHint": "art exhibition"
     },
     {
-      "id": "event-film-fest",
-      "description": "An old-style cinema marquee lit up at night.",
-      "imageUrl": "https://images.unsplash.com/photo-1646678376409-d3fe0099759b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjaW5lbWElMjB0aGVhdGVyfGVufDB8fHx8MTc1ODg3NDA2NXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "cinema theater"
-    },
-    {
-      "id": "event-rock-concert",
-      "description": "A rock band performing on stage with bright lights.",
-      "imageUrl": "https://images.unsplash.com/photo-1590721791974-d6c8ca43f6bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cm9jayUyMGNvbmNlcnR8ZW58MHx8fHwxNzU4ODc0MDY1fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "rock concert"
-    },
-    {
-      "id": "event-startup-pitch",
-      "description": "A person pitching an idea to an audience.",
-      "imageUrl": "https://images.unsplash.com/photo-1573167507387-6b4b98cb7c13?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxidXNpbmVzcyUyMHByZXNlbnRhdGlvbnxlbnwwfHx8fDE3NTg4NTI5MzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "business presentation"
+      "id": "event-delhi-food",
+      "description": "A variety of Indian street food dishes.",
+      "imageUrl": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBmb29kfGVufDB8fHx8MTc1ODg3NTE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "indian food"
     }
   ]
 }
