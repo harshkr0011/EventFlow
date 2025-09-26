@@ -93,7 +93,7 @@ export function Chatbot() {
       </Button>
 
       {isOpen && (
-        <Card className="fixed bottom-24 right-6 w-full max-w-sm h-[60vh] z-50 shadow-2xl flex flex-col rounded-lg bg-card/80 backdrop-blur-lg border border-border/20 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=right]:slide-in-from-left-0 data-[side=left]:slide-in-from-right-2 data-[side=top]:slide-in-from-bottom-2">
+        <Card className="fixed bottom-24 right-6 w-full max-w-xs h-[70vh] z-50 shadow-2xl flex flex-col rounded-lg bg-card/80 backdrop-blur-lg border border-border/20 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=right]:slide-in-from-left-0 data-[side=left]:slide-in-from-right-2 data-[side=top]:slide-in-from-bottom-2">
           <CardHeader className="flex flex-row items-center justify-between border-b">
             <CardTitle className="flex items-center gap-2 text-lg">
                 <Bot className="text-primary" /> EventFlow Assistant
