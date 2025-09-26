@@ -19,14 +19,10 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ListFilter } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -134,37 +130,34 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center items-center gap-4 mb-8">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-auto">
+              <TabsList>
+                <TabsTrigger value="all">All Events</TabsTrigger>
+                <TabsTrigger value="featured">Featured</TabsTrigger>
+                <TabsTrigger value="bookmarked">Bookmarked</TabsTrigger>
+              </TabsList>
+            </Tabs>
+
            <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
                 <ListFilter className="mr-2 h-4 w-4" />
-                Filters & Views
+                Categories
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
-              <DropdownMenuLabel>Show Events</DropdownMenuLabel>
-              <DropdownMenuRadioGroup value={activeTab} onValueChange={setActiveTab}>
-                <DropdownMenuRadioItem value="all">All Events</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="featured">Featured</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="bookmarked">Bookmarked</DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-              <DropdownMenuSeparator />
               <DropdownMenuLabel>Filter by Category</DropdownMenuLabel>
-               <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Categories</DropdownMenuSubTrigger>
-                <DropdownMenuSubContent>
-                   {eventCategories.map((category) => (
-                    <DropdownMenuCheckboxItem
-                      key={category}
-                      checked={selectedCategories.includes(category)}
-                      onCheckedChange={() => handleCategoryChange(category)}
-                    >
-                      {category}
-                    </DropdownMenuCheckboxItem>
-                  ))}
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
+              <DropdownMenuSeparator />
+               {eventCategories.map((category) => (
+                <DropdownMenuCheckboxItem
+                  key={category}
+                  checked={selectedCategories.includes(category)}
+                  onCheckedChange={() => handleCategoryChange(category)}
+                >
+                  {category}
+                </DropdownMenuCheckboxItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
