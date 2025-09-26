@@ -3,13 +3,13 @@
     {
       "id": "event-diwali",
       "description": "A celebration of Diwali with lights and fireworks.",
-      "imageUrl": "https://images.unsplash.com/photo-1604207863533-479758753234?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkaXdhbGl8ZW58MHx8fHwxNzU4ODc1MDI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1573428802953-40349c247926?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkaXdhbGklMjBsYW1wc3xlbnwwfHx8fDE3NTg5MzM5ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "diwali festival"
     },
     {
       "id": "event-holi",
       "description": "People celebrating Holi festival with colors.",
-      "imageUrl": "https://images.unsplash.com/photo-1519624042459-f0275811654e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxob2xpJTIwZmVzdGl2YWx8ZW58MHx8fHwxNzU4ODc1MDUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1616425994236-8a9a4335f657?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxob2xpJTIwZmVzdGl2YWx8ZW58MHx8fHwxNzU4OTMzOTM1fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "holi festival"
     },
     {
