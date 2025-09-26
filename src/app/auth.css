@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 .auth-body {
-	background: #f6f5f7;
+	background: hsl(var(--background));
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -230,64 +230,41 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+    .auth-body {
+        height: auto;
+        padding: 20px 0;
+    }
     .auth-body .container {
         width: 100%;
+        max-width: 100%;
         min-height: 100vh;
         border-radius: 0;
         box-shadow: none;
-    }
-
-    .auth-body .form-container {
-        width: 100%;
+        overflow-y: auto;
         position: static;
-        height: auto;
-    }
-
-    .auth-body .sign-in-container {
-        top: 0;
-        height: 50%;
-    }
-
-    .auth-body .sign-up-container {
-        top: 0;
-        height: 50%;
-        opacity: 1;
-        z-index: 2;
     }
 
     .auth-body .overlay-container {
         display: none;
     }
 
-    .auth-body .container.right-panel-active .sign-in-container {
-        transform: translateY(100%);
+    .auth-body .form-container {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 40px 0;
     }
 
-    .auth-body .container.right-panel-active .sign-up-container {
-        transform: translateY(100%);
+    .auth-body .sign-up-container {
         opacity: 1;
-        z-index: 5;
+        z-index: 2;
+    }
+
+    /* Reset transforms and animations from desktop view */
+    .auth-body .container.right-panel-active .sign-in-container,
+    .auth-body .container.right-panel-active .sign-up-container {
+        transform: none;
         animation: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .auth-body {
-        height: auto;
-        padding: 20px 0;
-    }
-    
-    .auth-body .container {
-        min-height: auto;
-    }
-
-    .auth-body .sign-in-container, .auth-body .sign-up-container {
-        height: auto;
-        padding: 20px 0;
-    }
-    
-    .auth-body form {
-        padding: 0 20px;
     }
 }
