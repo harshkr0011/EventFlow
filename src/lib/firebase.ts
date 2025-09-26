@@ -1,5 +1,4 @@
-
-import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
+import { initializeApp, getApp, getApps, type FirebaseApp } from 'firebase/app';
 
 const firebaseConfig = {
   "projectId": "studio-4758176413-e97c3",
@@ -11,6 +10,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app: FirebaseApp = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+let app: FirebaseApp;
+if (!getApps().length) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApp();
+}
+
 
 export { app };
