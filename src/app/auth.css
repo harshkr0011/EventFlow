@@ -304,13 +304,13 @@
     }
 
     .auth-body .container.right-panel-active .overlay-left {
-        transform: translateY(20%);
+        transform: translateY(0);
     }
     
     .auth-body .overlay-right {
         bottom: 0;
         top: auto;
-        transform: translateY(-20%);
+        transform: translateY(0);
     }
     
     .auth-body .container.right-panel-active .overlay-right {
