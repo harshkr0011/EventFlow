@@ -30,18 +30,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
-      if (user) {
-        router.push('/');
-      }
     });
     return () => unsubscribe();
-  }, [router]);
+  }, []);
 
   const login = async (data: LoginFormData) => {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      // router.push('/'); // Redirection is handled by onAuthStateChanged
+      router.push('/dashboard');
     } catch (error) {
       console.error('Error signing in:', error);
       throw error;
@@ -54,7 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      // router.push('/'); // Redirection is handled by onAuthStateChanged
+      router.push('/dashboard');
     } catch (error) {
       console.error('Error signing up:', error);
       throw error;
@@ -67,7 +64,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setLoading(true);
     try {
       await signOut(auth);
-      router.push('/login');
+      router.push('/landing');
     } catch (error) {
       console.error('Error signing out:', error);
     } finally {
@@ -80,7 +77,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      // router.push('/'); // Redirection is handled by onAuthStateChanged
+      router.push('/dashboard');
     } catch (error) {
       console.error('Error signing in with Google:', error);
       throw error;
