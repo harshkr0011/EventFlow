@@ -15,7 +15,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Sheet, SheetContent } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -116,7 +116,15 @@ export default function Home() {
           {isMobile ? (
              <Sheet open={showFilters} onOpenChange={setShowFilters}>
                 <SheetContent side="left" className="w-3/4">
-                    {eventFilters}
+                    <SheetHeader>
+                        <SheetTitle>Event Filters</SheetTitle>
+                        <SheetDescription>
+                            Filter events by category to find what you're looking for.
+                        </SheetDescription>
+                    </SheetHeader>
+                    <div className="py-4">
+                      {eventFilters}
+                    </div>
                 </SheetContent>
              </Sheet>
           ) : (

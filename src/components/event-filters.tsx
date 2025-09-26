@@ -15,7 +15,7 @@ export function EventFilters({
   onCategoryChange,
 }: EventFiltersProps) {
   return (
-    <Card className="sticky top-24 bg-card/60 backdrop-blur-lg border border-border/10 shadow-lg rounded-xl">
+    <Card className="bg-card/60 backdrop-blur-lg border border-border/10 shadow-lg rounded-xl">
       <CardHeader>
         <CardTitle>Filter Events</CardTitle>
       </CardHeader>
