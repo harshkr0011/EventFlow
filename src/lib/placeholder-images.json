@@ -1,6 +1,12 @@
 {
   "placeholderImages": [
     {
+      "id": "event-chhath-puja",
+      "description": "Devotees offering prayers during Chhath Puja at sunrise.",
+      "imageUrl": "https://images.tv9hindi.com/wp-content/uploads/2023/11/chhath-puja-2023-date-apart-from-bihar-chhath-also-celebrated-in-up-and-these-states-.jpg?w=1280&enlarge=true",
+      "imageHint": "chhath puja"
+    },
+    {
       "id": "event-diwali",
       "description": "A celebration of Diwali with lights and fireworks.",
       "imageUrl": "https://www.besttravel.co.nz/wp-content/uploads/2024/10/diwali-102022-3-05a455826c2f4a2b993740300f88f041.jpg",
@@ -49,15 +55,9 @@
       "imageHint": "indian food"
     },
     {
-      "id": "event-chhath-puja",
-      "description": "Devotees offering prayers during Chhath Puja at sunrise.",
-      "imageUrl": "https://images.tv9hindi.com/wp-content/uploads/2023/11/chhath-puja-2023-date-apart-from-bihar-chhath-also-celebrated-in-up-and-these-states-.jpg?w=1280&enlarge=true",
-      "imageHint": "chhath puja"
-    },
-    {
       "id": "event-ipl-final",
-      "description": "A cricket stadium packed with fans during a night match.",
-      "imageUrl": "https://images.unsplash.com/photo-1594470120854-943485f79599?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "description": "Witness the electrifying final match of the biggest T20 cricket league in the world. A clash of titans for the ultimate glory.",
+      "imageUrl": "https://images.newsarenaindia.com/untitled-design-20250112t182518309jpg_1736686536284.jpg",
       "imageHint": "cricket match"
     },
     {
