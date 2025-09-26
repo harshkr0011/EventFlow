@@ -4,21 +4,30 @@
 import type { Event } from '@/lib/types';
 import { allEvents, eventCategories } from '@/lib/events';
 import * as React from 'react';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { EventList } from '@/components/event-list';
-import { EventFilters } from '@/components/event-filters';
 import { EventDetailsDialog } from '@/components/event-details-dialog';
 import { RecommendationTool } from '@/components/recommendation-tool';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { useDebounce } from '@/hooks/use-debounce';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ListFilter } from 'lucide-react';
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
@@ -29,8 +38,6 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = React.useState('all');
   const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
   const [isClient, setIsClient] = React.useState(false);
-  const [showFilters, setShowFilters] = React.useState(false);
-  const isMobile = useIsMobile();
 
   React.useEffect(() => {
     if (!loading && !user) {
@@ -98,14 +105,6 @@ export default function DashboardPage() {
     }
   };
   
-  const eventFilters = (
-    <EventFilters
-      categories={eventCategories}
-      selectedCategories={selectedCategories}
-      onCategoryChange={handleCategoryChange}
-    />
-  );
-  
   if (loading || !user) {
     return (
       <div className="flex flex-col min-h-screen w-full p-8 space-y-4">
@@ -124,7 +123,7 @@ export default function DashboardPage() {
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-transparent font-body text-foreground">
-      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} setShowFilters={setShowFilters} />
+      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4">
@@ -135,43 +134,42 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex justify-center mb-8">
-          <TabsList className="bg-primary/10">
-            <TabsTrigger value="all">All Events</TabsTrigger>
-            <TabsTrigger value="featured">Featured</TabsTrigger>
-            <TabsTrigger value="bookmarked">Bookmarked</TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <div className="flex justify-center mb-8">
+           <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                <ListFilter className="mr-2 h-4 w-4" />
+                Filters & Views
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>Show Events</DropdownMenuLabel>
+              <DropdownMenuRadioGroup value={activeTab} onValueChange={setActiveTab}>
+                <DropdownMenuRadioItem value="all">All Events</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="featured">Featured</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="bookmarked">Bookmarked</DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel>Filter by Category</DropdownMenuLabel>
+               <DropdownMenuSub>
+                <DropdownMenuSubTrigger>Categories</DropdownMenuSubTrigger>
+                <DropdownMenuSubContent>
+                   {eventCategories.map((category) => (
+                    <DropdownMenuCheckboxItem
+                      key={category}
+                      checked={selectedCategories.includes(category)}
+                      onCheckedChange={() => handleCategoryChange(category)}
+                    >
+                      {category}
+                    </DropdownMenuCheckboxItem>
+                  ))}
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
         
         <div className="flex flex-col gap-8">
-          {isMobile ? (
-             <Sheet open={showFilters} onOpenChange={setShowFilters}>
-                <SheetContent side="left" className="w-3/4">
-                    <SheetHeader>
-                        <SheetTitle>Event Filters</SheetTitle>
-                        <SheetDescription>
-                            Filter events by category to find what you're looking for.
-                        </SheetDescription>
-                    </SheetHeader>
-                    <div className="py-4">
-                      <EventFilters
-                        categories={eventCategories}
-                        selectedCategories={selectedCategories}
-                        onCategoryChange={handleCategoryChange}
-                        isMobile={isMobile}
-                      />
-                    </div>
-                </SheetContent>
-             </Sheet>
-          ) : (
-            <div>
-              <EventFilters
-                categories={eventCategories}
-                selectedCategories={selectedCategories}
-                onCategoryChange={handleCategoryChange}
-              />
-            </div>
-          )}
           <div>
             <EventList
               events={filteredEvents}
