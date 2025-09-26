@@ -9,7 +9,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Bookmark, Calendar, Facebook, Linkedin, MapPin, Twitter, Share2 } from 'lucide-react';
+import { Bookmark, Calendar, Facebook, Linkedin, MapPin, Twitter, Share2, CalendarPlus } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -34,6 +34,37 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
 
   const placeholder = PlaceHolderImages.find((p) => p.id === event.imageId);
   const eventUrl = typeof window !== 'undefined' ? `${window.location.origin}/dashboard?eventId=${event.id}` : '';
+
+  const generateCalendarLink = () => {
+    const startDate = new Date(event.date);
+    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // Assume 2 hour duration
+
+    const toICSFormat = (date: Date) => {
+        return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    }
+
+    const title = encodeURIComponent(event.title);
+    const description = encodeURIComponent(event.description);
+    const location = encodeURIComponent(event.venue);
+    const startTime = toICSFormat(startDate);
+    const endTime = toICSFormat(endDate);
+
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'BEGIN:VEVENT',
+      `URL:${eventUrl}`,
+      `DTSTART:${startTime}`,
+      `DTEND:${endTime}`,
+      `SUMMARY:${title}`,
+      `DESCRIPTION:${description}`,
+      `LOCATION:${location}`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\\n');
+
+    return `data:text/calendar;charset=utf8,${encodeURIComponent(icsContent)}`;
+  };
 
   return (
     <Dialog open={!!event} onOpenChange={onOpenChange}>
@@ -72,7 +103,7 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
 
               <Separator className="my-4" />
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-2">
                     <Share2 className="h-4 w-4 text-muted-foreground" />
                     <span className="text-sm font-medium">Share:</span>
@@ -84,10 +115,18 @@ export function EventDetailsDialog({ event, onOpenChange, isBookmarked, toggleBo
                         </a>
                     ))}
                 </div>
-                <Button variant="outline" onClick={() => toggleBookmark(event.id)}>
-                  <Bookmark className={`mr-2 h-4 w-4 ${isBookmarked ? 'fill-primary' : ''}`} />
-                  {isBookmarked ? 'Bookmarked' : 'Bookmark'}
-                </Button>
+                 <div className='flex items-center gap-2'>
+                    <Button asChild variant="outline">
+                        <a href={generateCalendarLink()} download={`${event.title}.ics`}>
+                            <CalendarPlus className="mr-2 h-4 w-4" />
+                            Add to Calendar
+                        </a>
+                    </Button>
+                    <Button variant="outline" onClick={() => toggleBookmark(event.id)}>
+                        <Bookmark className={`mr-2 h-4 w-4 ${isBookmarked ? 'fill-primary' : ''}`} />
+                        {isBookmarked ? 'Bookmarked' : 'Bookmark'}
+                    </Button>
+                 </div>
               </div>
 
               <Separator className="my-4" />
