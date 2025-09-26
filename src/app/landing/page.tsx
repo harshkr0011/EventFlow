@@ -7,12 +7,12 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, Calendar, Map, Users } from 'lucide-react';
 import { allEvents } from '@/lib/events';
 import { EventCard } from '@/components/event-card';
 import type { Event } from '@/lib/types';
 import { useRouter } from 'next/navigation';
+import { CountdownTimer } from '@/components/countdown-timer';
 
 
 function HowItWorksStep({ icon, title, description }: { icon: React.ElementType, title: string, description: string }) {
@@ -34,6 +34,7 @@ function HowItWorksStep({ icon, title, description }: { icon: React.ElementType,
 export default function LandingPage() {
     const [searchTerm, setSearchTerm] = React.useState('');
     const featuredEvents = allEvents.filter(e => e.category === 'Featured').slice(0, 3);
+    const premierEvent = allEvents.find(e => e.id === '4');
     const router = useRouter();
 
     return (
@@ -60,7 +61,9 @@ export default function LandingPage() {
                         <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
                             From sold-out concerts to local art shows, find and book your next unforgettable experience with EventFlow.
                         </p>
-                        <Button size="lg" className="bg-primary text-primary-foreground animate-fade-in" style={{ animationDelay: '0.4s' }} asChild>
+                         {premierEvent && <CountdownTimer date={premierEvent.date} />}
+
+                        <Button size="lg" className="bg-primary text-primary-foreground animate-fade-in mt-8" style={{ animationDelay: '0.4s' }} asChild>
                            <Link href="/signup">
                              Get Started <ArrowRight className="ml-2 h-5 w-5" />
                            </Link>
