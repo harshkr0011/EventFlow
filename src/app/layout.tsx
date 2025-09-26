@@ -3,6 +3,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/hooks/use-auth';
+import HomePage from './page';
 
 export const metadata: Metadata = {
   title: 'EventFlow',
@@ -26,7 +27,10 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <ThemeProvider storageKey="eventflow-theme">
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <HomePage />
+            {children}
+          </AuthProvider>
           <Toaster />
         </ThemeProvider>
       </body>

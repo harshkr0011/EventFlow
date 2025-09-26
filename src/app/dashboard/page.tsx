@@ -16,8 +16,13 @@ import { Footer } from '@/components/layout/footer';
 import { useDebounce } from '@/hooks/use-debounce';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
+import { useAuth } from '@/hooks/use-auth';
+import { useRouter } from 'next/navigation';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function DashboardPage() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = React.useState('');
   const [selectedCategories, setSelectedCategories] = React.useState<string[]>([]);
   const [bookmarkedEvents, setBookmarkedEvents] = React.useState<Set<string>>(new Set());
@@ -26,6 +31,13 @@ export default function DashboardPage() {
   const [isClient, setIsClient] = React.useState(false);
   const [showFilters, setShowFilters] = React.useState(false);
   const isMobile = useIsMobile();
+
+  React.useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login');
+    }
+  }, [user, loading, router]);
+
 
   React.useEffect(() => {
     setIsClient(true);
@@ -93,6 +105,22 @@ export default function DashboardPage() {
       onCategoryChange={handleCategoryChange}
     />
   );
+  
+  if (loading || !user) {
+    return (
+      <div className="flex flex-col min-h-screen w-full p-8 space-y-4">
+          <Skeleton className="h-16 w-full" />
+          <div className="flex-grow grid grid-cols-1 md:grid-cols-4 gap-8">
+              <Skeleton className="h-64 hidden md:block" />
+              <div className="md:col-span-3 space-y-4">
+                  <Skeleton className="h-48 w-full" />
+                  <Skeleton className="h-48 w-full" />
+                  <Skeleton className="h-48 w-full" />
+              </div>
+          </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-transparent font-body text-foreground">

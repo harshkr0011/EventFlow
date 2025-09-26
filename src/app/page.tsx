@@ -2,24 +2,30 @@
 'use client';
 
 import { useAuth } from '@/hooks/use-auth';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import DashboardPage from './dashboard/page';
-import LandingPage from './landing/page';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function HomePage() {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.push('/landing');
+    if (!loading) {
+      if (user) {
+        if (pathname === '/landing' || pathname === '/login' || pathname === '/signup') {
+          router.push('/dashboard');
+        }
+      } else {
+        if (pathname === '/dashboard') {
+          router.push('/login');
+        } else if (pathname === '/') {
+          router.push('/landing');
+        }
+      }
     }
-    if (!loading && user) {
-        router.push('/dashboard');
-    }
-  }, [user, loading, router]);
+  }, [user, loading, router, pathname]);
 
   if (loading) {
     return (
@@ -37,5 +43,6 @@ export default function HomePage() {
     )
   }
   
+  // Render nothing while redirecting
   return null;
 }
