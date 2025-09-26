@@ -2,8 +2,8 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signOut, type User, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { onAuthStateChanged, signOut, type User, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, getAuth } from 'firebase/auth';
+import { app } from '@/lib/firebase';
 import { usePathname, useRouter } from 'next/navigation';
 import type { LoginFormData } from '@/app/login/page';
 import type { SignupFormData } from '@/app/signup/page';
@@ -26,6 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
+  const auth = getAuth(app);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -33,7 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(false);
     });
     return () => unsubscribe();
-  }, []);
+  }, [auth]);
 
   const login = async (data: LoginFormData) => {
     setLoading(true);
@@ -80,7 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await signInWithPopup(auth, provider);
       router.push('/dashboard');
     } catch (error) {
-      console.error('Error signing in with Google:', error);
+      console.error('Error with Google sign-in:', error);
       throw error;
     } finally {
       setLoading(false);
@@ -88,11 +89,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const sendPasswordReset = async (email: string) => {
+    setLoading(true);
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
       console.error('Error sending password reset email:', error);
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -101,10 +105,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export function useAuth() {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-}
+};
