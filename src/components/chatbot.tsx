@@ -46,10 +46,11 @@ export function Chatbot() {
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
       console.error('Chatbot error:', error);
+      const errorMessageText = 'Sorry, I encountered a problem. The service might be temporarily unavailable. Please try again.';
       toast({
         variant: 'destructive',
         title: 'Chatbot Error',
-        description: 'Sorry, I encountered a problem. Please try again.',
+        description: errorMessageText,
       });
       const errorMessage: Message = { id: Date.now() + 1, text: "I'm having trouble connecting right now. Please try again in a moment.", sender: 'bot' };
       setMessages((prev) => [...prev, errorMessage]);
@@ -92,7 +93,7 @@ export function Chatbot() {
       </Button>
 
       {isOpen && (
-        <Card className="fixed bottom-24 right-6 w-full max-w-sm h-[60vh] z-50 shadow-2xl flex flex-col animate-fade-in">
+        <Card className="fixed bottom-24 right-6 w-full max-w-xs h-[70vh] z-50 shadow-2xl flex flex-col animate-fade-in rounded-lg">
           <CardHeader className="flex flex-row items-center justify-between border-b">
             <CardTitle className="flex items-center gap-2 text-lg">
                 <Bot className="text-primary" /> EventFlow Assistant
@@ -100,7 +101,7 @@ export function Chatbot() {
           </CardHeader>
           <CardContent className="flex-1 p-0 overflow-hidden flex flex-col">
              <ScrollArea className="h-full" viewportRef={viewportRef}>
-                <div className="p-4 space-y-4">
+                <div className="p-4 space-y-2">
                 {messages.map((msg) => (
                     <div
                     key={msg.id}
@@ -112,7 +113,7 @@ export function Chatbot() {
                     {msg.sender === 'bot' && <Bot className="h-6 w-6 text-primary flex-shrink-0" />}
                     <div
                         className={cn(
-                        'rounded-lg px-3 py-2 max-w-[80%] break-word',
+                        'rounded-lg px-3 py-2 max-w-[85%] break-word text-sm',
                         msg.sender === 'user'
                             ? 'bg-primary text-primary-foreground'
                             : 'bg-muted text-muted-foreground'
