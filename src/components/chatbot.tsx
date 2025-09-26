@@ -25,7 +25,6 @@ export function Chatbot() {
   const [input, setInput] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const { toast } = useToast();
-  const scrollAreaRef = React.useRef<HTMLDivElement>(null);
   const viewportRef = React.useRef<HTMLDivElement>(null);
 
 
@@ -86,8 +85,8 @@ export function Chatbot() {
             </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 p-0 overflow-hidden">
-             <ScrollArea className="h-full" ref={scrollAreaRef as any}>
-                <div className="p-4 space-y-4" ref={viewportRef}>
+             <ScrollArea className="h-full" viewportRef={viewportRef}>
+                <div className="p-4 space-y-4">
                 {messages.map((msg) => (
                     <div
                     key={msg.id}
