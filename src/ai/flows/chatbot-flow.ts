@@ -26,21 +26,17 @@ export async function chat(input: ChatbotInput): Promise<ChatbotOutput> {
   return chatbotFlow(input);
 }
 
-const eventDetails = allEvents.map(event => ({
-    title: event.title,
-    description: event.description,
-    date: event.date,
-    venue: event.venue,
-    price: event.price,
-    category: event.category,
-})).join('\n---\n');
+const eventDetails = allEvents.map(event => {
+    return `Title: ${event.title}\nDescription: ${event.description}\nDate: ${new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric'})}\nVenue: ${event.venue}\nPrice: ${event.price}\nCategory: ${event.category}`;
+}).join('\n\n---\n\n');
+
 
 const prompt = ai.definePrompt({
   name: 'chatbotPrompt',
   input: { schema: ChatbotInputSchema },
   output: { schema: ChatbotOutputSchema },
   prompt: `You are a friendly and helpful chatbot for an event management platform called "EventFlow".
-Your goal is to assist users with their questions about events.
+Your goal is to assist users with their questions about events. Your knowledge is strictly limited to the event data provided below. You cannot and must not access any external information or make up details.
 
 Here is a list of all available events:
 ---
@@ -49,12 +45,12 @@ ${eventDetails}
 
 Current date: ${new Date().toLocaleDateString()}
 
-When a user asks a question, use the event information provided above to answer them.
-- If a user asks about what events are available, you can suggest a few based on their query or popular ones.
+When a user asks a question, use ONLY the event information provided above to answer them.
 - If a user asks for details about a specific event, provide the information from the list.
-- If a user asks a general question or something you don't know, be honest and say you don't have that information.
+- When providing a date, make sure it is in a readable format (e.g., "October 26, 2024"). The dates in the data are already formatted correctly for you to use.
+- If a user asks a general question or something you don't know from the provided data, be honest and state that you don't have that information.
 - Keep your responses concise and friendly.
-- Do not make up information. Only use the data provided.
+- ABSOLUTELY DO NOT MAKE UP INFORMATION. If the information is not in the list, you do not know it. For example, do not invent new events or details.
 
 User's message: {{{message}}}
 `,
