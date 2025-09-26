@@ -12,6 +12,7 @@ import { ArrowRight, Calendar, Map, Users } from 'lucide-react';
 import { allEvents } from '@/lib/events';
 import { EventCard } from '@/components/event-card';
 import type { Event } from '@/lib/types';
+import { useRouter } from 'next/navigation';
 
 
 function HowItWorksStep({ icon, title, description }: { icon: React.ElementType, title: string, description: string }) {
@@ -32,8 +33,8 @@ function HowItWorksStep({ icon, title, description }: { icon: React.ElementType,
 
 export default function LandingPage() {
     const [searchTerm, setSearchTerm] = React.useState('');
-    const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
     const featuredEvents = allEvents.filter(e => e.category === 'Featured').slice(0, 3);
+    const router = useRouter();
 
     return (
         <div className="flex flex-col min-h-screen bg-background">
@@ -88,7 +89,7 @@ export default function LandingPage() {
                                <EventCard 
                                  key={event.id}
                                  event={event}
-                                 onEventClick={() => {}}
+                                 onEventClick={() => router.push('/login')}
                                  isBookmarked={false}
                                  toggleBookmark={() => {}}
                                  isClient={true}
@@ -108,4 +109,3 @@ export default function LandingPage() {
         </div>
     );
 }
-
