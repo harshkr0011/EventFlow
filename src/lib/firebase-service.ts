@@ -19,6 +19,7 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const db = getFirestore(app);
 
 const COMMENTS_COLLECTION = 'comments';
+const CONTACT_MESSAGES_COLLECTION = 'contact-messages';
 
 // Type for the data we store in Firestore
 type FirestoreCommentData = {
@@ -27,6 +28,25 @@ type FirestoreCommentData = {
   text: string;
   sentiment: 'positive' | 'negative' | 'neutral';
   createdAt: Date;
+};
+
+type ContactMessageData = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+// Add a new contact message
+export const addContactMessage = async (messageData: ContactMessageData) => {
+    try {
+        await addDoc(collection(db, CONTACT_MESSAGES_COLLECTION), {
+            ...messageData,
+            createdAt: Timestamp.now(),
+        });
+    } catch (error) {
+        console.error('Error adding contact message to Firestore:', error);
+        throw new Error('Could not send message.');
+    }
 };
 
 // Add a new comment to an event

@@ -13,6 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { addContactMessage } from '@/lib/firebase-service';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -35,24 +36,29 @@ export default function ContactPage() {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    console.log('Contact form submitted:', data);
-    
-    toast({
-      title: 'Message Sent!',
-      description: "Thanks for reaching out. We'll get back to you shortly.",
-    });
+    try {
+      await addContactMessage(data);
+      
+      toast({
+        title: 'Message Sent!',
+        description: "Thanks for reaching out. We'll get back to you shortly.",
+      });
 
-    reset();
+      reset();
+    } catch (error) {
+       toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem sending your message. Please try again.',
+      });
+    }
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <main className="flex-grow container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <Card className="w-full max-w-md mx-auto">
+        <Card className="w-full max-w-lg mx-auto">
           <CardHeader>
             <CardTitle className="text-3xl font-bold text-center">Contact Us</CardTitle>
             <CardDescription className="text-center">
