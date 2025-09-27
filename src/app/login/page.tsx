@@ -169,7 +169,7 @@ export default function AuthPage() {
           </div>
         </div>
       </div>
-      <Button variant="default" asChild className="mt-4">
+      <Button variant="outline" asChild className="mt-4 font-bold">
         <Link href="/landing">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Home
