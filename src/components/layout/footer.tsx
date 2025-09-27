@@ -47,7 +47,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t pt-4 flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground">
+        <div className="mt-8 border-t pt-4 flex flex-col sm:flex-row justify-center items-center gap-x-6 text-sm text-muted-foreground">
             <p>&copy; {new Date().getFullYear()} EventFlow. All rights reserved.</p>
             <div className="flex gap-4 mt-4 sm:mt-0">
                 <Link href="/privacy-policy" className="hover:text-primary">Privacy Policy</Link>
