@@ -49,7 +49,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="auth-body">
         <div className="container" style={{ minHeight: 'auto', width: '450px'}}>
-            <div className="form-container sign-in-container" style={{ width: '100%', height: 'auto' }}>
+            <div className="form-container" style={{ width: '100%', height: 'auto', position: 'relative', left: '0' }}>
                 <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '40px'}}>
                     <h1>Forgot Password</h1>
                     <p className='text-muted-foreground'>Enter your email and we&apos;ll send you a link to reset your password.</p>
