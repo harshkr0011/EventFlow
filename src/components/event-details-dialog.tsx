@@ -3,9 +3,13 @@ import type { Event } from '@/lib/types';
 import {
   Dialog,
   DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { EventDetailsContent } from './event-details-content';
+import { Badge } from './ui/badge';
 
 type EventDetailsDialogProps = {
   event: Event | null;
