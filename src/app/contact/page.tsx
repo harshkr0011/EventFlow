@@ -51,8 +51,8 @@ export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <Card className="w-full max-w-lg">
+      <main className="flex-grow container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <Card className="w-full max-w-md mx-auto">
           <CardHeader>
             <CardTitle className="text-3xl font-bold text-center">Contact Us</CardTitle>
             <CardDescription className="text-center">
