@@ -1,35 +1,34 @@
-
 'use client';
 
 import type { Event } from '@/lib/types';
 import {
-  Sheet,
-  SheetContent,
-} from '@/components/ui/sheet';
+  Drawer,
+  DrawerContent,
+} from '@/components/ui/drawer';
 import { EventDetailsContent } from './event-details-content';
 import { ScrollArea } from './ui/scroll-area';
 
-type EventDetailsSheetProps = {
+type EventDetailsDrawerProps = {
   event: Event | null;
   onOpenChange: (open: boolean) => void;
   isBookmarked: boolean;
   toggleBookmark: (eventId: string) => void;
 };
 
-export function EventDetailsSheet({ event, onOpenChange, isBookmarked, toggleBookmark }: EventDetailsSheetProps) {
+export function EventDetailsDrawer({ event, onOpenChange, isBookmarked, toggleBookmark }: EventDetailsDrawerProps) {
     if (!event) return null;
 
     return (
-        <Sheet open={!!event} onOpenChange={onOpenChange}>
-            <SheetContent side="bottom" className="w-full h-[90vh] p-0">
-                <ScrollArea className="h-full">
+        <Drawer open={!!event} onOpenChange={onOpenChange}>
+            <DrawerContent>
+                <ScrollArea className="h-[85vh]">
                     <EventDetailsContent
                         event={event}
                         isBookmarked={isBookmarked}
                         toggleBookmark={toggleBookmark}
                     />
                 </ScrollArea>
-            </SheetContent>
-        </Sheet>
+            </DrawerContent>
+        </Drawer>
     );
 }

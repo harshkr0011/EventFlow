@@ -26,7 +26,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ListFilter } from 'lucide-react';
 import { Chatbot } from '@/components/chatbot';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { EventDetailsSheet } from '@/components/event-details-sheet';
+import { EventDetailsDrawer } from '@/components/event-details-drawer';
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
@@ -191,7 +191,7 @@ export default function DashboardPage() {
       </main>
       <Footer />
        {isMobile ? (
-         <EventDetailsSheet
+         <EventDetailsDrawer
             event={selectedEvent}
             onOpenChange={(isOpen) => !isOpen && handleClose()}
             isBookmarked={!!selectedEvent && bookmarkedEvents.has(selectedEvent.id)}
