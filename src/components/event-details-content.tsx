@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { EventComments } from './event-comments';
 import { DialogTitle, DialogDescription, DialogHeader } from './ui/dialog';
+import Link from 'next/link';
 
 type EventDetailsContentProps = {
     event: Event;
@@ -72,7 +73,9 @@ export function EventDetailsContent({ event, isBookmarked, toggleBookmark }: Eve
                 
                 <div className="flex items-center justify-between mb-4">
                     <p className="text-lg md:text-2xl font-bold text-primary">₹{event.price}</p>
-                    <Button className="bg-gradient-primary text-primary-foreground font-bold" size="lg">Book Now</Button>
+                    <Button asChild className="bg-gradient-primary text-primary-foreground font-bold" size="lg">
+                      <Link href={`/payment/${event.id}`}>Book Now</Link>
+                    </Button>
                 </div>
 
                 <Separator className="my-4" />
