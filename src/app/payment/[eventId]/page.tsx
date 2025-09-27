@@ -19,6 +19,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, CreditCard, Calendar, Lock, QrCode } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useAuth } from '@/hooks/use-auth';
+import { addBooking } from '@/lib/firebase-service';
 
 const paymentSchema = z.object({
   name: z.string().min(2, 'Name on card is required'),
@@ -40,6 +42,7 @@ export default function PaymentPage() {
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
+  const { user } = useAuth();
   const eventId = params.eventId as string;
   const [event, setEvent] = React.useState<Event | null>(null);
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -79,24 +82,34 @@ export default function PaymentPage() {
     resolver: zodResolver(upiSchema),
   });
 
-  const handleSuccessfulPayment = () => {
-    toast({
-      title: 'Payment Successful!',
-      description: `Your ticket for "${event?.title}" has been booked.`,
-    });
-    
-    router.push('/dashboard');
+  const handleSuccessfulPayment = async () => {
+    if (!user || !event) return;
+
+    try {
+        await addBooking(user.uid, event.id);
+        toast({
+            title: 'Payment Successful!',
+            description: `Your ticket for "${event?.title}" has been booked.`,
+        });
+        router.push('/bookings');
+    } catch (error) {
+        toast({
+            variant: 'destructive',
+            title: 'Booking Failed',
+            description: 'There was a problem saving your booking. Please try again.',
+        });
+    }
   }
 
   const onCardPayment = async (data: PaymentFormData) => {
     await new Promise(resolve => setTimeout(resolve, 2000));
-    handleSuccessfulPayment();
+    await handleSuccessfulPayment();
   };
   
   const onUpiPayment = async (data: UpiFormData) => {
     setIsUpiSubmitting(true);
     await new Promise(resolve => setTimeout(resolve, 1500));
-    handleSuccessfulPayment();
+    await handleSuccessfulPayment();
     setIsUpiSubmitting(false);
     resetUpi();
   }
@@ -104,11 +117,11 @@ export default function PaymentPage() {
   const onQrPayment = async () => {
       setIsQrSubmitting(true);
       await new Promise(resolve => setTimeout(resolve, 3000));
-      handleSuccessfulPayment();
+      await handleSuccessfulPayment();
       setIsQrSubmitting(false);
   }
 
-  if (!event) {
+  if (!event || !user) {
     return (
         <div className="flex flex-col min-h-screen bg-background">
             <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -266,5 +279,3 @@ export default function PaymentPage() {
     </div>
   );
 }
-
-    

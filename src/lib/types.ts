@@ -32,3 +32,10 @@ export type Comment = {
     sentiment: 'positive' | 'negative' | 'neutral';
     createdAt: string;
 };
+
+export type Booking = {
+    id: string;
+    userId: string;
+    eventId: string;
+    bookingDate: string;
+}

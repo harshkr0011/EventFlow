@@ -1,4 +1,5 @@
 
+
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import {
   getFirestore,
@@ -13,13 +14,15 @@ import {
   type FirestoreError,
 } from 'firebase/firestore';
 import { firebaseConfig } from './firebase';
-import type { Comment } from './types';
+import type { Comment, Booking } from './types';
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const db = getFirestore(app);
 
 const COMMENTS_COLLECTION = 'comments';
 const CONTACT_MESSAGES_COLLECTION = 'contact-messages';
+const BOOKINGS_COLLECTION = 'bookings';
+
 
 // Type for the data we store in Firestore
 type FirestoreCommentData = {
@@ -102,4 +105,54 @@ export const onCommentsSnapshot = (
   );
 
   return unsubscribe;
+};
+
+// Add a new booking for a user
+export const addBooking = async (userId: string, eventId: string) => {
+    try {
+        await addDoc(collection(db, BOOKINGS_COLLECTION), {
+            userId,
+            eventId,
+            bookingDate: Timestamp.now(),
+        });
+    } catch (error) {
+        console.error('Error adding booking to Firestore:', error);
+        throw new Error('Could not create booking.');
+    }
+};
+
+// Listen for real-time updates to a user's bookings
+export const onBookingsSnapshot = (
+    userId: string,
+    callback: (bookings: Booking[]) => void,
+    onError: (error: FirestoreError) => void
+): Unsubscribe => {
+    const q = query(
+        collection(db, BOOKINGS_COLLECTION),
+        where('userId', '==', userId),
+        orderBy('bookingDate', 'desc')
+    );
+
+    const unsubscribe = onSnapshot(
+        q,
+        (querySnapshot) => {
+            const bookings: Booking[] = [];
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                bookings.push({
+                    id: doc.id,
+                    userId: data.userId,
+                    eventId: data.eventId,
+                    bookingDate: (data.bookingDate as Timestamp).toDate().toISOString(),
+                });
+            });
+            callback(bookings);
+        },
+        (error) => {
+            console.error('Error listening to bookings snapshot:', error);
+            onError(error);
+        }
+    );
+
+    return unsubscribe;
 };
