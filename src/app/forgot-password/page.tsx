@@ -25,7 +25,7 @@ export default function ForgotPasswordPage() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordFormData>({
-    resolver: zodResolver(forgotPasswordPasswordSchema),
+    resolver: zodResolver(forgotPasswordSchema),
   });
   const { sendPasswordReset } = useAuth();
   const { toast } = useToast();
@@ -85,4 +85,3 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
-
