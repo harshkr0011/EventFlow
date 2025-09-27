@@ -35,7 +35,7 @@ export default function TermsOfServicePage() {
 
             <h3 className="text-xl font-semibold text-foreground">Intellectual Property</h3>
             <p>
-                The Service and its original content, features, and functionality are and will remain the exclusive property of EventFlow and its licensors.
+                The Service and its original content, features, and functionality are and will remain the exclusive property of EventFlow and its licensors. The Service is protected by copyright, trademark, and other laws of both India and foreign countries, including the Copyright Act, 1957 and the Trade Marks Act, 1999. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of EventFlow.
             </p>
 
             <h3 className="text-xl font-semibold text-foreground">Links To Other Web Sites</h3>
