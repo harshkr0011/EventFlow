@@ -27,7 +27,7 @@ export default function AboutPage() {
           <div className="md:flex">
             <div className="md:w-1/3 bg-primary/10 p-8 flex flex-col items-center justify-center">
               <Image
-                src="https://placehold.co/150x150/7c3aed/white?text=HK"
+                src="https://media.licdn.com/dms/image/v2/D4D03AQFcyXnPtLKEAg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1699605068529?e=2147483647&v=beta&t=MpcHdC8-7aTW1wXJuSFZchcwScdn_RRc4SEz93I1QUg"
                 alt="Harsh Kumar"
                 width={150}
                 height={150}
