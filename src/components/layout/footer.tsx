@@ -8,10 +8,10 @@ export function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="flex flex-col">
-            <div className="flex items-center mb-4">
+            <Link href="/dashboard" className="flex items-center mb-4">
               <Ticket className="h-6 w-6 text-primary" />
               <span className="ml-2 text-lg font-bold">EventFlow</span>
-            </div>
+            </Link>
             <p className="text-muted-foreground text-sm max-w-xs">
               Your ultimate destination for discovering and booking unforgettable events.
             </p>
