@@ -25,6 +25,8 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ListFilter } from 'lucide-react';
 import { Chatbot } from '@/components/chatbot';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { EventDetailsSheet } from '@/components/event-details-sheet';
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
@@ -35,6 +37,7 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = React.useState('all');
   const [selectedEvent, setSelectedEvent] = React.useState<Event | null>(null);
   const [isClient, setIsClient] = React.useState(false);
+  const isMobile = useIsMobile();
 
   React.useEffect(() => {
     if (!loading && !user) {
@@ -102,7 +105,7 @@ export default function DashboardPage() {
     }
   };
   
-  if (loading || !user) {
+  if (loading || !user || isMobile === undefined) {
     return (
       <div className="flex flex-col min-h-screen w-full p-8 space-y-4">
           <Skeleton className="h-16 w-full" />
@@ -117,6 +120,14 @@ export default function DashboardPage() {
       </div>
     )
   }
+
+  const handleEventSelect = (event: Event) => {
+    setSelectedEvent(event);
+  };
+
+  const handleClose = () => {
+    setSelectedEvent(null);
+  };
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-transparent font-body text-foreground">
@@ -167,7 +178,7 @@ export default function DashboardPage() {
           <div>
             <EventList
               events={filteredEvents}
-              onEventClick={setSelectedEvent}
+              onEventClick={handleEventSelect}
               bookmarkedEvents={bookmarkedEvents}
               toggleBookmark={toggleBookmark}
               isClient={isClient}
@@ -175,16 +186,25 @@ export default function DashboardPage() {
           </div>
         </div>
         
-        <RecommendationTool allEvents={allEvents} onEventClick={setSelectedEvent} />
+        <RecommendationTool allEvents={allEvents} onEventClick={handleEventSelect} />
 
       </main>
       <Footer />
-      <EventDetailsDialog
-        event={selectedEvent}
-        onOpenChange={(isOpen) => !isOpen && setSelectedEvent(null)}
-        isBookmarked={!!selectedEvent && bookmarkedEvents.has(selectedEvent.id)}
-        toggleBookmark={toggleBookmark}
-      />
+       {isMobile ? (
+         <EventDetailsSheet
+            event={selectedEvent}
+            onOpenChange={(isOpen) => !isOpen && handleClose()}
+            isBookmarked={!!selectedEvent && bookmarkedEvents.has(selectedEvent.id)}
+            toggleBookmark={toggleBookmark}
+         />
+       ) : (
+         <EventDetailsDialog
+            event={selectedEvent}
+            onOpenChange={(isOpen) => !isOpen && handleClose()}
+            isBookmarked={!!selectedEvent && bookmarkedEvents.has(selectedEvent.id)}
+            toggleBookmark={toggleBookmark}
+          />
+       )}
       <Chatbot />
     </div>
   );
