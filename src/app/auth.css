@@ -34,17 +34,21 @@
 }
 
 .auth-body a {
-	color: #333;
+	color: hsl(var(--muted-foreground));
 	font-size: 14px;
 	text-decoration: none;
 	margin: 15px 0;
+}
+
+.auth-body a:hover {
+    text-decoration: underline;
 }
 
 .auth-body button {
 	border-radius: 20px;
 	border: 1px solid hsl(var(--primary));
 	background-color: hsl(var(--primary));
-	color: #FFFFFF;
+	color: hsl(var(--primary-foreground));
 	font-size: 12px;
 	font-weight: bold;
 	padding: 12px 45px;
@@ -64,11 +68,11 @@
 
 .auth-body button.ghost {
 	background-color: transparent;
-	border-color: #FFFFFF;
+	border-color: hsl(var(--primary-foreground));
 }
 
 .auth-body form {
-	background-color: #FFFFFF;
+	background-color: hsl(var(--card));
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -79,16 +83,16 @@
 }
 
 .auth-body input {
-	background-color: #eee;
+	background-color: hsl(var(--input));
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
 	width: 100%;
-	color: #000;
+	color: hsl(var(--foreground));
 }
 
 .auth-body .container {
-	background-color: #fff;
+	background-color: hsl(var(--card));
 	border-radius: 10px;
   	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 			0 10px 10px rgba(0,0,0,0.22);
@@ -164,7 +168,7 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
-	color: #FFFFFF;
+	color: hsl(var(--primary-foreground));
 	position: relative;
 	left: -100%;
 	height: 100%;

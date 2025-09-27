@@ -7,12 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import '../auth.css';
+import { ArrowLeft } from 'lucide-react';
 
 const forgotPasswordSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -26,7 +25,7 @@ export default function ForgotPasswordPage() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordFormData>({
-    resolver: zodResolver(forgotPasswordSchema),
+    resolver: zodResolver(forgotPasswordPasswordSchema),
   });
   const { sendPasswordReset } = useAuth();
   const { toast } = useToast();
@@ -49,37 +48,40 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="auth-body">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-2xl">Forgot Password</CardTitle>
-          <CardDescription>
-            Enter your email and we&apos;ll send you a link to reset your password.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                {...register('email')}
-              />
-              {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+        <div className="container" style={{ minHeight: 'auto', width: '450px'}}>
+            <div className="form-container sign-in-container" style={{ width: '100%', height: 'auto' }}>
+                <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '40px'}}>
+                    <h1>Forgot Password</h1>
+                    <p className='text-muted-foreground'>Enter your email and we&apos;ll send you a link to reset your password.</p>
+                    
+                    <Input
+                        id="email"
+                        type="email"
+                        placeholder="m@example.com"
+                        {...register('email')}
+                        className='text-base'
+                    />
+                    {errors.email && <p className="error-message">{errors.email.message}</p>}
+                    
+                    <button type="submit" className="mt-4" disabled={isSubmitting}>
+                        {isSubmitting ? 'Sending...' : 'Send Reset Link'}
+                    </button>
+
+                     <div className="mt-4 text-center text-sm">
+                        Remember your password?{' '}
+                        <Link href="/login" className="underline">
+                        Log in
+                        </Link>
+                    </div>
+                </form>
             </div>
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? 'Sending...' : 'Send Reset Link'}
-            </Button>
-          </form>
-          <div className="mt-4 text-center text-sm">
-            Remember your password?{' '}
-            <Link href="/login" className="underline">
-              Log in
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+      <Button variant="default" asChild className="mt-4">
+        <Link href="/landing">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Home
+        </Link>
+      </Button>
     </div>
   );
 }
