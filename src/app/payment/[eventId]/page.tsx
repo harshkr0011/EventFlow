@@ -16,9 +16,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ArrowLeft, CreditCard, Calendar, Lock } from 'lucide-react';
+import { ArrowLeft, CreditCard, Calendar, Lock, QrCode } from 'lucide-react';
 import Link from 'next/link';
-import { Separator } from '@/components/ui/separator';
+import Image from 'next/image';
 
 const paymentSchema = z.object({
   name: z.string().min(2, 'Name on card is required'),
@@ -44,6 +44,8 @@ export default function PaymentPage() {
   const [event, setEvent] = React.useState<Event | null>(null);
   const [searchTerm, setSearchTerm] = React.useState('');
   const [isUpiSubmitting, setIsUpiSubmitting] = React.useState(false);
+  const [showQr, setShowQr] = React.useState(false);
+  const [isQrSubmitting, setIsQrSubmitting] = React.useState(false);
 
 
   React.useEffect(() => {
@@ -87,18 +89,23 @@ export default function PaymentPage() {
   }
 
   const onCardPayment = async (data: PaymentFormData) => {
-    // Simulate payment processing
     await new Promise(resolve => setTimeout(resolve, 2000));
     handleSuccessfulPayment();
   };
   
   const onUpiPayment = async (data: UpiFormData) => {
     setIsUpiSubmitting(true);
-     // Simulate UPI processing
     await new Promise(resolve => setTimeout(resolve, 1500));
     handleSuccessfulPayment();
     setIsUpiSubmitting(false);
     resetUpi();
+  }
+
+  const onQrPayment = async () => {
+      setIsQrSubmitting(true);
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      handleSuccessfulPayment();
+      setIsQrSubmitting(false);
   }
 
   if (!event) {
@@ -106,7 +113,7 @@ export default function PaymentPage() {
         <div className="flex flex-col min-h-screen bg-background">
             <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
             <main className="flex-grow container mx-auto py-12 px-4">
-                 <Skeleton className="h-96 w-full max-w-2xl mx-auto" />
+                 <Skeleton className="h-96 w-full max-w-3xl mx-auto" />
             </main>
             <Footer />
         </div>
@@ -117,15 +124,15 @@ export default function PaymentPage() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <main className="flex-grow container mx-auto py-12 px-4">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto">
             <Button variant="ghost" asChild className="mb-4">
                 <Link href="/dashboard">
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back to events
                 </Link>
             </Button>
-            <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-8">
+            <div className="grid md:grid-cols-5 gap-8">
+                <div className="md:col-span-2 space-y-8">
                     <Card>
                         <CardHeader>
                             <CardTitle>Order Summary</CardTitle>
@@ -147,8 +154,57 @@ export default function PaymentPage() {
                             </div>
                         </CardContent>
                     </Card>
+                </div>
 
+                <div className="md:col-span-3 space-y-8">
                     <Card>
+                        <CardHeader>
+                            <CardTitle>Pay with Card</CardTitle>
+                            <CardDescription>Enter your card information to complete the purchase.</CardDescription>
+                        </CardHeader>
+                        <form onSubmit={handleCardSubmit(onCardPayment)}>
+                            <CardContent className="space-y-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="name">Name on Card</Label>
+                                    <Input id="name" {...registerCard('name')} placeholder="John Doe" />
+                                    {cardErrors.name && <p className="text-sm text-destructive">{cardErrors.name.message}</p>}
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="cardNumber">Card Number</Label>
+                                    <div className="relative">
+                                        <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                        <Input id="cardNumber" {...registerCard('cardNumber')} placeholder="0000 0000 0000 0000" className="pl-9" />
+                                    </div>
+                                    {cardErrors.cardNumber && <p className="text-sm text-destructive">{cardErrors.cardNumber.message}</p>}
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="expiryDate">Expiry</Label>
+                                        <div className="relative">
+                                            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                            <Input id="expiryDate" {...registerCard('expiryDate')} placeholder="MM/YY" className="pl-9" />
+                                        </div>
+                                        {cardErrors.expiryDate && <p className="text-sm text-destructive">{cardErrors.expiryDate.message}</p>}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="cvv">CVV</Label>
+                                        <div className="relative">
+                                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                            <Input id="cvv" {...registerCard('cvv')} placeholder="123" className="pl-9" />
+                                        </div>
+                                        {cardErrors.cvv && <p className="text-sm text-destructive">{cardErrors.cvv.message}</p>}
+                                    </div>
+                                </div>
+                            </CardContent>
+                            <CardFooter>
+                                <Button type="submit" className="w-full bg-gradient-primary text-primary-foreground" disabled={isCardSubmitting}>
+                                    {isCardSubmitting ? 'Processing...' : `Pay ₹${event.price}`}
+                                </Button>
+                            </CardFooter>
+                        </form>
+                    </Card>
+
+                     <Card>
                         <CardHeader>
                           <CardTitle>Pay with UPI</CardTitle>
                           <CardDescription>Enter your UPI ID to pay.</CardDescription>
@@ -168,55 +224,41 @@ export default function PaymentPage() {
                           </CardFooter>
                         </form>
                     </Card>
-                </div>
 
-
-                <Card className="md:col-span-1">
-                    <CardHeader>
-                        <CardTitle>Pay with Card</CardTitle>
-                        <CardDescription>Enter your card information to complete the purchase.</CardDescription>
-                    </CardHeader>
-                    <form onSubmit={handleCardSubmit(onCardPayment)}>
-                        <CardContent className="space-y-4">
-                             <div className="space-y-2">
-                                <Label htmlFor="name">Name on Card</Label>
-                                <Input id="name" {...registerCard('name')} placeholder="John Doe" />
-                                {cardErrors.name && <p className="text-sm text-destructive">{cardErrors.name.message}</p>}
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="cardNumber">Card Number</Label>
-                                <div className="relative">
-                                    <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                    <Input id="cardNumber" {...registerCard('cardNumber')} placeholder="0000 0000 0000 0000" className="pl-9" />
-                                </div>
-                                {cardErrors.cardNumber && <p className="text-sm text-destructive">{cardErrors.cardNumber.message}</p>}
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="expiryDate">Expiry</Label>
-                                    <div className="relative">
-                                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                        <Input id="expiryDate" {...registerCard('expiryDate')} placeholder="MM/YY" className="pl-9" />
-                                    </div>
-                                    {cardErrors.expiryDate && <p className="text-sm text-destructive">{cardErrors.expiryDate.message}</p>}
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="cvv">CVV</Label>
-                                    <div className="relative">
-                                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                        <Input id="cvv" {...registerCard('cvv')} placeholder="123" className="pl-9" />
-                                    </div>
-                                    {cardErrors.cvv && <p className="text-sm text-destructive">{cardErrors.cvv.message}</p>}
-                                </div>
-                            </div>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Pay with QR Code</CardTitle>
+                            <CardDescription>Scan the QR code with your favorite payment app.</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex flex-col items-center justify-center space-y-4">
+                            {!showQr ? (
+                                <Button variant="outline" onClick={() => setShowQr(true)}>
+                                    <QrCode className="mr-2 h-4 w-4" />
+                                    Show QR Code
+                                </Button>
+                            ) : (
+                                <>
+                                    <Image
+                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=example@upi&pn=EventFlow&am=${event.price}&cu=INR&tn=Ticket for ${encodeURIComponent(event.title)}`}
+                                        alt="QR Code"
+                                        width={150}
+                                        height={150}
+                                    />
+                                    <p className="text-sm text-muted-foreground text-center">
+                                        Scan the code to pay ₹{event.price}.<br/>After payment, click the button below.
+                                    </p>
+                                </>
+                            )}
                         </CardContent>
-                        <CardFooter>
-                            <Button type="submit" className="w-full bg-gradient-primary text-primary-foreground" disabled={isCardSubmitting}>
-                                {isCardSubmitting ? 'Processing...' : `Pay ₹${event.price}`}
-                            </Button>
-                        </CardFooter>
-                    </form>
-                </Card>
+                        {showQr && (
+                            <CardFooter>
+                                <Button className="w-full" onClick={onQrPayment} disabled={isQrSubmitting}>
+                                     {isQrSubmitting ? 'Verifying Payment...' : 'I have paid'}
+                                </Button>
+                            </CardFooter>
+                        )}
+                    </Card>
+                </div>
             </div>
         </div>
       </main>
@@ -224,3 +266,5 @@ export default function PaymentPage() {
     </div>
   );
 }
+
+    
