@@ -117,7 +117,7 @@ export default function AuthPage() {
             <form onSubmit={handleSignupSubmit(onSignupSubmit)}>
               <h1>Create Account</h1>
               <div className="my-4">
-              <Button onClick={handleGoogleSignIn} variant="outline" className="w-full">
+              <Button onClick={handleGoogleSignIn} variant="outline">
                 <GoogleIcon className="mr-2 h-5 w-5" />
                 Continue with Google
               </Button>
@@ -138,7 +138,7 @@ export default function AuthPage() {
           <form onSubmit={handleLoginSubmit(onLoginSubmit)}>
             <h1>Sign in</h1>
             <div className="my-4">
-              <Button onClick={handleGoogleSignIn} variant="outline" className="w-full">
+              <Button onClick={handleGoogleSignIn} variant="outline">
                 <GoogleIcon className="mr-2 h-5 w-5" />
                 Continue with Google
               </Button>
