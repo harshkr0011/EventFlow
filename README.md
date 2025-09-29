@@ -4,6 +4,14 @@ EventFlow is a comprehensive, AI-driven web application designed for discovering
 
 **Live Preview**: [https://6000-firebase-studio-1758873337243.cluster-iktsryn7xnhpexlu6255bftka4.cloudworkstations.dev/landing](https://6000-firebase-studio-1758873337243.cluster-iktsryn7xnhpexlu6255bftka4.cloudworkstations.dev/landing)
 
+EventFlow is a sophisticated, full-stack web application engineered to revolutionize how users interact with events. At its core, it’s an AI-powered event management platform built on a modern, robust technology stack including Next.js for a high-performance React front-end, and Firebase for secure backend services like Authentication and Firestore database. The user journey begins with a secure and simple authentication system, supporting both traditional email/password login and convenient Google OAuth, complete with password reset functionality.
+
+Once logged in, users are greeted with a dynamic dashboard where they can discover a diverse range of events. The platform’s intelligence shines through its AI-driven features, powered by Google's Genkit. A personalized recommendation engine analyzes user preferences to suggest tailored events, while an interactive chatbot offers conversational assistance for event-related queries. Furthermore, a sentiment analysis flow processes user comments, providing valuable insights into community feedback.
+
+The user experience is designed to be engaging and intuitive. Users can bookmark their favorite events for later, and a simulated multi-step payment gateway—complete with Credit Card, UPI, and QR code options—makes the booking process feel realistic and seamless. All booked events are neatly organized on a dedicated "My Bookings" page.
+
+Community engagement is fostered through a real-time commenting system on each event page, allowing users to share their thoughts and see the sentiment of others. The platform’s UI is built with ShadCN/UI and Tailwind CSS, ensuring a polished, modern aesthetic. It’s fully responsive, featuring a unique draggable bottom sheet for event details on mobile devices, which transforms into an elegant dialog on desktops. This commitment to a seamless, intelligent, and user-centric design makes EventFlow a cutting-edge solution for modern event discovery and management.
+
 ## Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/) (with App Router)
