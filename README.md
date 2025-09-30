@@ -2,7 +2,7 @@
 
 EventFlow is a comprehensive, AI-driven web application designed for discovering, booking, and managing events. Built with Next.js, Firebase, and Google's Genkit, it offers a seamless, interactive, and personalized user experience.
 
-**Live Preview**: [https://6000-firebase-studio-1758873337243.cluster-iktsryn7xnhpexlu6255bftka4.cloudworkstations.dev/landing](https://6000-firebase-studio-1758873337243.cluster-iktsryn7xnhpexlu6255bftka4.cloudworkstations.dev/landing)
+**Live Preview**: ((https://cosmic-syrniki-bbf916.netlify.app/landing))
 
 EventFlow is a sophisticated, full-stack web application engineered to revolutionize how users interact with events. At its core, it’s an AI-powered event management platform built on a modern, robust technology stack including Next.js for a high-performance React front-end, and Firebase for secure backend services like Authentication and Firestore database. The user journey begins with a secure and simple authentication system, supporting both traditional email/password login and convenient Google OAuth, complete with password reset functionality.
 
